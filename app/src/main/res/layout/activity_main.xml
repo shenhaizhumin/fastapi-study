@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingRight="@dimen/dp_30"
+    android:paddingLeft="@dimen/dp_30"
+    android:background="@android:color/white"
+    tools:context=".MainActivity">
+
+    <TextView
+        android:id="@+id/title_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="@dimen/dp_120"
+        android:text="欢迎来到摄图"
+        android:textColor="#222222"
+        android:textSize="@dimen/sp_20"
+        android:textStyle="bold" />
+
+    <RelativeLayout
+        android:id="@+id/account_rl"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_45"
+        android:layout_below="@+id/title_tv"
+        android:layout_marginTop="@dimen/dp_65"
+        android:background="@drawable/shape_edit_bg">
+
+        <ImageView
+            android:id="@+id/account_iv"
+            android:layout_width="@dimen/dp_24"
+            android:layout_height="@dimen/dp_24"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/dp_16"
+            android:layout_marginRight="@dimen/dp_10"
+            android:src="@drawable/icon_account" />
+
+        <EditText
+            android:id="@+id/etAccount"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginRight="@dimen/dp_16"
+            android:layout_toRightOf="@+id/account_iv"
+            android:background="@null"
+            android:ems="20"
+            android:hint="手机号/邮箱/账号"
+            android:singleLine="true"
+            android:textColor="@color/commonTextColor"
+            android:textSize="@dimen/sp_16" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/pwd_rl"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_45"
+        android:layout_below="@+id/account_rl"
+        android:layout_marginTop="@dimen/dp_20"
+        android:background="@drawable/shape_edit_bg">
+
+        <ImageView
+            android:id="@+id/password_iv"
+            android:layout_width="@dimen/dp_24"
+            android:layout_height="@dimen/dp_24"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/dp_16"
+            android:layout_marginRight="@dimen/dp_10"
+            android:src="@drawable/icon_pwd" />
+
+        <EditText
+            android:id="@+id/etPassword"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginRight="@dimen/dp_16"
+            android:layout_toRightOf="@+id/password_iv"
+            android:background="@null"
+            android:ems="20"
+            android:hint="请输入密码"
+            android:inputType="textPassword"
+            android:singleLine="true"
+            android:textColor="@color/commonTextColor"
+            android:textSize="@dimen/sp_16" />
+    </RelativeLayout>
+
+
+    <Button
+        android:id="@+id/btnLogin"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_40"
+        android:layout_below="@+id/pwd_rl"
+        android:layout_marginTop="@dimen/dp_30"
+        android:background="@drawable/shape_btn_pause_bg"
+        android:text="登录"
+        android:textColor="@android:color/white" />
+
+    <RelativeLayout
+        android:id="@+id/rl_protocol"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginTop="@dimen/dp_20"
+        android:layout_marginBottom="@dimen/dp_50">
+
+        <CheckBox
+            android:id="@+id/cbSelect"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/dp_5"
+            android:layout_toRightOf="@+id/cbSelect"
+            android:text="我已阅读并接受《用户服务协议》及《隐私协议》"
+            android:textColor="#C8C8C8"
+            android:textSize="@dimen/sp_12" />
+    </RelativeLayout>
+</RelativeLayout>
