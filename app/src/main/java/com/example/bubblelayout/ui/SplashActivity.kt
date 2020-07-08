@@ -1,12 +1,8 @@
 package com.example.bubblelayout.ui
 
-import android.animation.ObjectAnimator
 import android.content.Intent
 import android.os.Bundle
-import android.view.animation.Animation
-import android.view.animation.RotateAnimation
 import androidx.appcompat.app.AppCompatActivity
-import com.example.bubblelayout.MainActivity
 import com.example.bubblelayout.R
 import kotlinx.android.synthetic.main.activity_splash.*
 

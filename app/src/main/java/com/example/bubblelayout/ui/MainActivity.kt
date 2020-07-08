@@ -1,18 +1,13 @@
-package com.example.bubblelayout
+package com.example.bubblelayout.ui
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
-import android.view.View
-import android.widget.RadioGroup
-import android.widget.SeekBar
-import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
+import com.example.bubblelayout.R
 import com.example.bubblelayout.base.BaseActivity
-import com.example.bubblelayout.databinding.ActivityDataBindingBinding
-import com.example.bubblelayout.ui.HomeActivity
-import com.google.gson.Gson
-import kotlinx.android.synthetic.main.activity_data_binding.*
+import com.example.bubblelayout.utils.UserInfoUtil
+import com.example.bubblelayout.viewmodel.LoginViewModel
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : BaseActivity() {
@@ -22,6 +17,7 @@ class MainActivity : BaseActivity() {
     private var isAccount = false
     private var isPassword = false
     private var isProtocol = false
+    private lateinit var loginViewModel: LoginViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -31,6 +27,16 @@ class MainActivity : BaseActivity() {
 //            R.layout.activity_data_binding
 //        )
         setContentView(R.layout.activity_main)
+        loginViewModel = ViewModelProvider(this).get(LoginViewModel::class.java)
+        loginViewModel.userLiveData.observe(this, Observer {
+            //登录成功！
+            UserInfoUtil.setUserId(it.id)
+            UserInfoUtil.setAccessToken(it.access_token)
+            startActivity(Intent(this, HomeActivity::class.java))
+        })
+        loginViewModel.errorLiveData.observe(this, Observer {
+            toast("$it")
+        })
         etAccount.afterTextChanged {
             isAccount = it?.length!! > 0
         }
@@ -42,7 +48,7 @@ class MainActivity : BaseActivity() {
         }
 
         btnLogin.setOnClickListener {
-            startActivity(Intent(this,HomeActivity::class.java))
+
             if (!isAccount) {
                 toast("missing account")
                 return@setOnClickListener
@@ -61,6 +67,9 @@ class MainActivity : BaseActivity() {
     }
 
     private fun login() {
-
+        loginViewModel.login(
+            etAccount.text.toString().trim(),
+            etPassword.text.toString().toString()
+        )
     }
 }

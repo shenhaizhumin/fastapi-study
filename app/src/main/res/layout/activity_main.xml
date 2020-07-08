@@ -7,7 +7,7 @@
     android:paddingRight="@dimen/dp_30"
     android:paddingLeft="@dimen/dp_30"
     android:background="@android:color/white"
-    tools:context=".MainActivity">
+    tools:context=".ui.MainActivity">
 
     <TextView
         android:id="@+id/title_tv"

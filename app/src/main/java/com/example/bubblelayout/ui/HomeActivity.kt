@@ -2,12 +2,64 @@ package com.example.bubblelayout.ui
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.fragment.app.Fragment
 import com.example.bubblelayout.R
+import com.example.bubblelayout.base.BaseActivity
+import com.example.bubblelayout.ui.fragment.HomeFragment
+import com.example.bubblelayout.ui.fragment.InstagramFragment
+import com.example.bubblelayout.ui.fragment.MessageFragment
+import kotlinx.android.synthetic.main.activity_home.*
 
-class HomeActivity : AppCompatActivity() {
+class HomeActivity : BaseActivity() {
+    private var currentFragment: Fragment? = null
+    private lateinit var homeFragment: HomeFragment
+    private var messageFragment: MessageFragment? = null
+    private var instagramFragment: InstagramFragment? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_home)
+        initView()
+    }
+
+    private fun initView() {
+        homeFragment = HomeFragment()
+        nav_view.setOnNavigationItemSelectedListener {
+            when (it.itemId) {
+                R.id.navigation_home -> {
+                    //首页
+                    addFragment(homeFragment)
+                }
+                R.id.navigation_notifications -> {
+                    if (instagramFragment == null) {
+                        instagramFragment = InstagramFragment()
+                    }
+                    addFragment(instagramFragment!!)
+                }
+                R.id.navigation_dashboard -> {
+                    if (messageFragment == null) {
+                        messageFragment = MessageFragment()
+                    }
+                    addFragment(messageFragment!!)
+                }
+                else -> {
+                }
+            }
+            return@setOnNavigationItemSelectedListener true
+        }
+        nav_view.selectedItemId = R.id.navigation_home
+    }
+
+    private fun addFragment(fragment: Fragment) {
+        val transaction = supportFragmentManager.beginTransaction()
+        if (currentFragment != null) {
+            transaction.hide(currentFragment!!)
+        }
+        if (fragment.isAdded) {
+            transaction.show(fragment)
+        } else {
+            transaction.add(R.id.fl_container, fragment, fragment.javaClass.simpleName)
+        }
+        currentFragment = fragment
     }
 }
