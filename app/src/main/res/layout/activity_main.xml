@@ -7,7 +7,7 @@
     android:paddingRight="@dimen/dp_30"
     android:paddingLeft="@dimen/dp_30"
     android:background="@android:color/white"
-    tools:context=".ui.MainActivity">
+    tools:context=".ui.LoginActivity">
 
     <TextView
         android:id="@+id/title_tv"
@@ -45,6 +45,7 @@
             android:layout_toRightOf="@+id/account_iv"
             android:background="@null"
             android:ems="20"
+            android:text="19973488682"
             android:hint="手机号/邮箱/账号"
             android:singleLine="true"
             android:textColor="@color/commonTextColor"
@@ -73,6 +74,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginRight="@dimen/dp_16"
+            android:text="123456"
             android:layout_toRightOf="@+id/password_iv"
             android:background="@null"
             android:ems="20"

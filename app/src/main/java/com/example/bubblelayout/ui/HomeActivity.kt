@@ -1,13 +1,14 @@
 package com.example.bubblelayout.ui
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
 import com.example.bubblelayout.R
 import com.example.bubblelayout.base.BaseActivity
 import com.example.bubblelayout.ui.fragment.HomeFragment
 import com.example.bubblelayout.ui.fragment.InstagramFragment
 import com.example.bubblelayout.ui.fragment.MessageFragment
+import com.example.bubblelayout.viewmodel.DiscoverViewModel
 import kotlinx.android.synthetic.main.activity_home.*
 
 class HomeActivity : BaseActivity() {
@@ -19,6 +20,7 @@ class HomeActivity : BaseActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_home)
+
         initView()
     }
 
@@ -60,6 +62,7 @@ class HomeActivity : BaseActivity() {
         } else {
             transaction.add(R.id.fl_container, fragment, fragment.javaClass.simpleName)
         }
+        transaction.commit()
         currentFragment = fragment
     }
 }
