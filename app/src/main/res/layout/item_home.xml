@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
+
+    <com.example.bubblelayout.widget.RoundRectImageView
+        android:id="@+id/iv_item_img"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/dp_150"
+        android:scaleType="fitXY"
+        android:src="@drawable/timg" />
+
+    <TextView
+        android:id="@+id/tv_item_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/iv_item_img"
+        android:layout_marginTop="@dimen/dp_10"
+        android:text="黑板"
+        android:textColor="@android:color/black"
+        android:textSize="@dimen/sp_16" />
+
+    <TextView
+        android:id="@+id/tv_item_desc"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tv_item_title"
+        android:layout_marginTop="@dimen/dp_5"
+        android:ellipsize="end"
+        android:maxEms="7"
+        android:maxLines="1"
+        android:text="Website Back"
+        android:textColor="@color/commonColorGray" />
+
+    <TextView
+        android:layout_alignParentRight="true"
+        android:layout_alignBottom="@+id/tv_item_desc"
+        android:drawablePadding="@dimen/dp_4"
+        android:drawableLeft="@drawable/ic_download_gray_24dp"
+        android:id="@+id/tv_item_downloads"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dp_5"
+        android:gravity="center"
+        android:text="1228"
+        android:textColor="@color/commonColorGray" />
+
+</RelativeLayout>

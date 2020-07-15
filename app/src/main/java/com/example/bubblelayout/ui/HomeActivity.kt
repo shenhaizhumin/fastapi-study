@@ -1,14 +1,19 @@
 package com.example.bubblelayout.ui
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
 import com.example.bubblelayout.R
 import com.example.bubblelayout.base.BaseActivity
+import com.example.bubblelayout.imageloader.ImageLoader
 import com.example.bubblelayout.ui.fragment.HomeFragment
 import com.example.bubblelayout.ui.fragment.InstagramFragment
 import com.example.bubblelayout.ui.fragment.MessageFragment
+import com.example.bubblelayout.viewmodel.DiscoverViewModel
 import kotlinx.android.synthetic.main.activity_home.*
+
 
 class HomeActivity : BaseActivity() {
     private var currentFragment: Fragment? = null
@@ -19,7 +24,13 @@ class HomeActivity : BaseActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_home)
+        ImageLoader.getInstance().init(this)
         initView()
+//        ActivityCompat.requestPermissions(
+//            this,
+//            arrayOf(android.Manifest.permission.WRITE_EXTERNAL_STORAGE),
+//            100
+//        )
     }
 
     private fun initView() {
@@ -60,6 +71,7 @@ class HomeActivity : BaseActivity() {
         } else {
             transaction.add(R.id.fl_container, fragment, fragment.javaClass.simpleName)
         }
+        transaction.commit()
         currentFragment = fragment
     }
 }

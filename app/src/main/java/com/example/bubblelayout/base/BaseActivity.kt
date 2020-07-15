@@ -1,15 +1,18 @@
 package com.example.bubblelayout.base
 
+import android.graphics.Color
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
 import android.widget.EditText
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import com.jaeger.library.StatusBarUtil
 
 open class BaseActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        StatusBarUtil.setColor(this, Color.WHITE)
         super.onCreate(savedInstanceState)
     }
 

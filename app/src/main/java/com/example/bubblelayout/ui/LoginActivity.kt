@@ -10,7 +10,7 @@ import com.example.bubblelayout.utils.UserInfoUtil
 import com.example.bubblelayout.viewmodel.LoginViewModel
 import kotlinx.android.synthetic.main.activity_main.*
 
-class MainActivity : BaseActivity() {
+class LoginActivity : BaseActivity() {
     val TAG = javaClass.simpleName
 
     //    private lateinit var dataBinding: ActivityDataBindingBinding
@@ -31,7 +31,7 @@ class MainActivity : BaseActivity() {
         loginViewModel.userLiveData.observe(this, Observer {
             //登录成功！
             UserInfoUtil.setUserId(it.id)
-            UserInfoUtil.setAccessToken(it.access_token)
+            UserInfoUtil.setAccessToken("Bearer ${it.access_token}")
             startActivity(Intent(this, HomeActivity::class.java))
         })
         loginViewModel.errorLiveData.observe(this, Observer {
@@ -48,7 +48,7 @@ class MainActivity : BaseActivity() {
         }
 
         btnLogin.setOnClickListener {
-
+//            startActivity(Intent(this, HomeActivity::class.java))
             if (!isAccount) {
                 toast("missing account")
                 return@setOnClickListener
@@ -69,7 +69,7 @@ class MainActivity : BaseActivity() {
     private fun login() {
         loginViewModel.login(
             etAccount.text.toString().trim(),
-            etPassword.text.toString().toString()
+            etPassword.text.toString().trim()
         )
     }
 }

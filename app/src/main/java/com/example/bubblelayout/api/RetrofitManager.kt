@@ -3,7 +3,6 @@ package com.example.bubblelayout.api
 import android.util.Log
 import com.blankj.utilcode.util.SPUtils
 import com.example.bubblelayout.utils.UserInfoUtil
-import com.franmontiel.persistentcookiejar.PersistentCookieJar
 import com.jakewharton.retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import okhttp3.*
 import okhttp3.logging.HttpLoggingInterceptor
