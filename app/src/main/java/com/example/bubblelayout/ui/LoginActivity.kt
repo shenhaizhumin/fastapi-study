@@ -46,6 +46,9 @@ class LoginActivity : BaseActivity() {
         cbSelect.setOnCheckedChangeListener { _, isChecked ->
             isProtocol = isChecked
         }
+        mTvRegister.setOnClickListener {
+            startActivity(Intent(this, RegisterActivity::class.java))
+        }
 
         btnLogin.setOnClickListener {
 //            startActivity(Intent(this, HomeActivity::class.java))
@@ -64,6 +67,9 @@ class LoginActivity : BaseActivity() {
             //登录
             login()
         }
+        etAccount.setText("19973488682")
+        etPassword.setText("123456")
+        cbSelect.isSelected = true
     }
 
     private fun login() {

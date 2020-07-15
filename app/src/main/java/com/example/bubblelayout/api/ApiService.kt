@@ -1,5 +1,6 @@
 package com.example.bubblelayout.api
 
+import com.example.bubblelayout.api.body.UserBody
 import com.example.bubblelayout.entity.CategoryEntity
 import com.example.bubblelayout.entity.UserEntity
 import io.reactivex.Observable
@@ -26,5 +27,14 @@ interface ApiService {
     fun categories(
         @Path("categories") categories: String
     ): Observable<BaseResponse<MutableList<CategoryEntity>>>
+
+    @POST(Urls.register)
+    fun register(@Body body: UserBody): Observable<BaseResponse<UserEntity>>
+
+    @GET(Urls.userInfo)
+    fun userInfo(): Observable<BaseResponse<UserEntity>>
+
+    @PUT(Urls.updateUser)
+    fun updateUser(@Body body: UserBody): Observable<BaseResponse<UserEntity>>
 
 }

@@ -4,9 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingRight="@dimen/dp_30"
-    android:paddingLeft="@dimen/dp_30"
     android:background="@android:color/white"
+    android:paddingLeft="@dimen/dp_30"
+    android:paddingRight="@dimen/dp_30"
     tools:context=".ui.LoginActivity">
 
     <TextView
@@ -45,7 +45,6 @@
             android:layout_toRightOf="@+id/account_iv"
             android:background="@null"
             android:ems="20"
-            android:text="19973488682"
             android:hint="手机号/邮箱/账号"
             android:singleLine="true"
             android:textColor="@color/commonTextColor"
@@ -74,7 +73,6 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginRight="@dimen/dp_16"
-            android:text="123456"
             android:layout_toRightOf="@+id/password_iv"
             android:background="@null"
             android:ems="20"
@@ -95,6 +93,16 @@
         android:background="@drawable/shape_btn_pause_bg"
         android:text="登录"
         android:textColor="@android:color/white" />
+
+    <TextView
+        android:id="@+id/mTvRegister"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/btnLogin"
+        android:layout_alignParentRight="true"
+        android:layout_marginTop="@dimen/dp_10"
+        android:text="注册账号"
+        android:textColor="@color/commonTextColor" />
 
     <RelativeLayout
         android:id="@+id/rl_protocol"

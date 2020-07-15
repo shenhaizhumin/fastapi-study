@@ -17,9 +17,12 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".ui.SearchActivity"
+        <activity android:name=".ui.UserInfoActivity"></activity>
+        <activity android:name=".ui.RegisterActivity" />
+        <activity
+            android:name=".ui.SearchActivity"
             android:configChanges="keyboardHidden"
-            android:windowSoftInputMode="stateHidden"/>
+            android:windowSoftInputMode="stateHidden" />
         <activity
             android:name=".ui.SplashActivity"
             android:theme="@style/SplashTheme">
@@ -30,9 +33,10 @@
             </intent-filter>
         </activity>
         <activity android:name=".ui.HomeActivity" />
-        <activity android:name=".ui.LoginActivity"
+        <activity
+            android:name=".ui.LoginActivity"
             android:configChanges="keyboardHidden"
-            android:windowSoftInputMode="stateHidden"/>
+            android:windowSoftInputMode="stateHidden" />
     </application>
 
 </manifest>

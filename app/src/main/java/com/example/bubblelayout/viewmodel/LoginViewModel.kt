@@ -4,6 +4,7 @@ import androidx.lifecycle.MutableLiveData
 import com.example.bubblelayout.api.ApiService
 import com.example.bubblelayout.api.BaseResponse
 import com.example.bubblelayout.api.RetrofitManager
+import com.example.bubblelayout.api.body.UserBody
 import com.example.bubblelayout.base.BaseViewModel
 import com.example.bubblelayout.entity.UserEntity
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -20,6 +21,60 @@ class LoginViewModel : BaseViewModel() {
         compositeDisposable.add(
             RetrofitManager.getInstance().createService(ApiService::class.java)
                 .session(params)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe({
+                    if (it.code == 200) {
+                        userLiveData.value = it.data
+                    } else {
+                        errorLiveData.value = it.message
+                    }
+                }, {
+                    errorLiveData.value = "${it.message}"
+                })
+        )
+    }
+
+    fun register(body: UserBody) {
+        compositeDisposable.add(
+            RetrofitManager.getInstance().createService(ApiService::class.java)
+                .register(body)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe({
+                    if (it.code == 200) {
+                        userLiveData.value = it.data
+                    } else {
+                        errorLiveData.value = it.message
+                    }
+                }, {
+                    errorLiveData.value = "${it.message}"
+                })
+        )
+    }
+
+    fun getUserInfo(){
+        compositeDisposable.add(
+            RetrofitManager.getInstance().createService(ApiService::class.java)
+                .userInfo()
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe({
+                    if (it.code == 200) {
+                        userLiveData.value = it.data
+                    } else {
+                        errorLiveData.value = it.message
+                    }
+                }, {
+                    errorLiveData.value = "${it.message}"
+                })
+        )
+    }
+
+    fun updateUser(body: UserBody){
+        compositeDisposable.add(
+            RetrofitManager.getInstance().createService(ApiService::class.java)
+                .updateUser(body)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({
