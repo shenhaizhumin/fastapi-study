@@ -2,8 +2,11 @@ package com.example.bubblelayout.api
 
 import com.example.bubblelayout.api.body.UserBody
 import com.example.bubblelayout.entity.CategoryEntity
+import com.example.bubblelayout.entity.FileEntity
 import com.example.bubblelayout.entity.UserEntity
 import io.reactivex.Observable
+import okhttp3.MultipartBody
+import okhttp3.RequestBody
 import retrofit2.http.*
 
 interface ApiService {
@@ -36,5 +39,11 @@ interface ApiService {
 
     @PUT(Urls.updateUser)
     fun updateUser(@Body body: UserBody): Observable<BaseResponse<UserEntity>>
+
+
+//    @Multipart
+//    @FormUrlEncoded
+    @POST(Urls.uploadFile)
+    fun uploadFile(@Body fileBody: RequestBody): Observable<BaseResponse<FileEntity>>
 
 }

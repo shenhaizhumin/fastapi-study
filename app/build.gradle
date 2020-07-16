@@ -11,7 +11,7 @@ android {
     buildToolsVersion "29.0.2"
     defaultConfig {
         applicationId "com.example.bubblelayout"
-        minSdkVersion 17
+        minSdkVersion 19
         targetSdkVersion 29
         versionCode 1
         versionName "1.0"
@@ -19,9 +19,14 @@ android {
         vectorDrawables.useSupportLibrary = true
 //        renderscriptTargetApi 17
 //        renderscriptSupportModeEnabled true
+        multiDexEnabled true
     }
     dataBinding {
         enabled = true
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
     }
     buildTypes {
         release {
@@ -74,4 +79,6 @@ dependencies {
     implementation 'com.google.android:flexbox:2.0.1'
     implementation 'androidx.recyclerview:recyclerview:1.2.0-alpha04'
 //    implementation 'com.kongzue.dialog_v3:dialog:3.2.1'
+    implementation 'com.github.LuckSiege.PictureSelector:picture_library:v2.5.8'
+    implementation 'androidx.multidex:multidex:2.0.1'
 }

@@ -14,4 +14,5 @@ object Urls {
     const val register = "/register"
     const val userInfo = "/userInfo"
     const val updateUser = "/updateUser"
+    const val uploadFile = "/uploadFile"
 }

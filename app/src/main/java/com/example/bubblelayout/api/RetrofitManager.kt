@@ -41,7 +41,7 @@ class RetrofitManager {
     fun init() {
         val loggingInterceptor = HttpLoggingInterceptor(HttpLoggingInterceptor.Logger { message ->
             try {
-                Log.e("OKHttp-----", URLDecoder.decode(message, "utf-8"))
+                Log.e("OKHttp-----", message+"")
             } catch (e: UnsupportedEncodingException) {
                 e.printStackTrace()
                 Log.e("OKHttp-----", message)
