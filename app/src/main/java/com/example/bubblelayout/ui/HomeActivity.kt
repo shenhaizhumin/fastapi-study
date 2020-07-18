@@ -8,10 +8,7 @@ import androidx.lifecycle.ViewModelProvider
 import com.example.bubblelayout.R
 import com.example.bubblelayout.base.BaseActivity
 import com.example.bubblelayout.imageloader.ImageLoader
-import com.example.bubblelayout.ui.fragment.AccountFragment
-import com.example.bubblelayout.ui.fragment.HomeFragment
-import com.example.bubblelayout.ui.fragment.InstagramFragment
-import com.example.bubblelayout.ui.fragment.MessageFragment
+import com.example.bubblelayout.ui.fragment.*
 import com.example.bubblelayout.viewmodel.DiscoverViewModel
 import kotlinx.android.synthetic.main.activity_home.*
 
@@ -19,9 +16,10 @@ import kotlinx.android.synthetic.main.activity_home.*
 class HomeActivity : BaseActivity() {
     private var currentFragment: Fragment? = null
     private lateinit var homeFragment: HomeFragment
-//    private var messageFragment: MessageFragment? = null
+    //    private var messageFragment: MessageFragment? = null
     private var instagramFragment: InstagramFragment? = null
     private var accountFragment: AccountFragment? = null
+    private var momentFragment: MomentFragment? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -33,6 +31,7 @@ class HomeActivity : BaseActivity() {
 //            arrayOf(android.Manifest.permission.WRITE_EXTERNAL_STORAGE),
 //            100
 //        )
+
     }
 
     private fun initView() {
@@ -49,11 +48,17 @@ class HomeActivity : BaseActivity() {
                     }
                     addFragment(instagramFragment!!)
                 }
-                R.id.navigation_dashboard -> {
+                R.id.navigation_account -> {
                     if (accountFragment == null) {
                         accountFragment = AccountFragment()
                     }
                     addFragment(accountFragment!!)
+                }
+                R.id.navigation_dashboard -> {
+                    if (momentFragment == null) {
+                        momentFragment = MomentFragment()
+                    }
+                    addFragment(momentFragment!!)
                 }
                 else -> {
                 }
