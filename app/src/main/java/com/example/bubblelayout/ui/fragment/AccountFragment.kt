@@ -44,7 +44,7 @@ class AccountFragment : BaseFragment() {
                     password = null,
                     email = null,
                     nickname = null,
-                    avatar_url = it.image_url
+                    avatar_url = it.file_url
                 )
             )
         })

@@ -1,9 +1,9 @@
 package com.example.bubblelayout.api
 
+import com.example.bubblelayout.api.body.CommentBody
+import com.example.bubblelayout.api.body.MomentBody
 import com.example.bubblelayout.api.body.UserBody
-import com.example.bubblelayout.entity.CategoryEntity
-import com.example.bubblelayout.entity.FileEntity
-import com.example.bubblelayout.entity.UserEntity
+import com.example.bubblelayout.entity.*
 import io.reactivex.Observable
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
@@ -41,9 +41,19 @@ interface ApiService {
     fun updateUser(@Body body: UserBody): Observable<BaseResponse<UserEntity>>
 
 
-//    @Multipart
+    //    @Multipart
 //    @FormUrlEncoded
     @POST(Urls.uploadFile)
     fun uploadFile(@Body fileBody: RequestBody): Observable<BaseResponse<FileEntity>>
+
+
+    @GET(Urls.moments)
+    fun getMoments(): Observable<BaseResponse<MutableList<MomentEntity>>>
+
+    @POST(Urls.publish)
+    fun publish(@Body body: MomentBody): Observable<BaseResponse<MomentEntity>>
+
+    @POST(Urls.publishComment)
+    fun publishComment(@Body body: CommentBody): Observable<BaseResponse<CommentEntity>>
 
 }

@@ -15,4 +15,8 @@ object Urls {
     const val userInfo = "/userInfo"
     const val updateUser = "/updateUser"
     const val uploadFile = "/uploadFile"
+    const val moments = "/moments"
+    const val publish = "/moments/publish"
+    const val publishComment = "/moments/publishComment"
+    const val collect = "/moments/collect"
 }

@@ -8,4 +8,5 @@
     <color name="commonNormalColor">#cdcdcd</color>
     <color name="commonColorGray">#C8C8C8</color>
     <color name="colorBlack">#000000</color>
+    <color name="colorMomentTitle">#00ffff</color>
 </resources>
