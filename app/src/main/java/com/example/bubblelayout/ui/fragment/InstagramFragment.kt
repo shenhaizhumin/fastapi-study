@@ -10,11 +10,11 @@ import com.example.bubblelayout.R
 import com.example.bubblelayout.adapter.ContentPagerAdapter
 import com.example.bubblelayout.adapter.TitleIndicatorAdapter
 import com.example.bubblelayout.base.BaseFragment
+import com.example.bubblelayout.base.BaseVMFragment
 import com.example.bubblelayout.viewmodel.DiscoverViewModel
 import kotlinx.android.synthetic.main.fragment_instagram.*
 
-class InstagramFragment : BaseFragment() {
-    private lateinit var mDiscoverViewModel: DiscoverViewModel
+class InstagramFragment : BaseVMFragment<DiscoverViewModel>() {
     private val category = "Article"
 
     //    private val mTitles = listOf("热门", "Android", "App", "iOS", "前端", "拓展资源")
@@ -24,8 +24,8 @@ class InstagramFragment : BaseFragment() {
     override fun getLayoutId(): Int = R.layout.fragment_instagram
 
     override fun initData() {
-        mDiscoverViewModel = ViewModelProvider(this).get(DiscoverViewModel::class.java)
-        mDiscoverViewModel.categoriesLiveData.observe(this, Observer { list ->
+        mViewModel = ViewModelProvider(this).get(DiscoverViewModel::class.java)
+        mViewModel.categoriesLiveData.observe(this, Observer { list ->
             val titles = list.map { it.title }
             list.forEach { item ->
                 val bundle = Bundle()
@@ -47,19 +47,21 @@ class InstagramFragment : BaseFragment() {
             }
         })
 
-        mDiscoverViewModel.errorLiveData.observe(this, Observer {
+        mViewModel.errorLiveData.observe(this, Observer {
             toast(it)
         })
         //Article | GanHuo | Girl
-        mDiscoverViewModel.categories(category)
+        mViewModel.categories(category)
         //禁止viewpager滑动
     }
 
     override fun onHiddenChanged(hidden: Boolean) {
         super.onHiddenChanged(hidden)
         if (!hidden) {
-//            mDiscoverViewModel.categories(category)
+//            mViewModel.categories(category)
         }
     }
+
+    override fun createViewModel(): Class<DiscoverViewModel> = DiscoverViewModel::class.java
 
 }

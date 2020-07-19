@@ -10,6 +10,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.jaeger.library.StatusBarUtil
 
 open class BaseActivity : AppCompatActivity() {
+    val TAG = javaClass.simpleName
 
     override fun onCreate(savedInstanceState: Bundle?) {
         StatusBarUtil.setColor(this, Color.WHITE)

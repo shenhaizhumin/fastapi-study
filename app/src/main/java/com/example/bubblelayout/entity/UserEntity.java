@@ -42,6 +42,15 @@ public class UserEntity implements Serializable {
     private String mobile;
     private String nickname;
     private String avatar_url;
+    private String moment_image;
+
+    public String getMoment_image() {
+        return moment_image;
+    }
+
+    public void setMoment_image(String moment_image) {
+        this.moment_image = moment_image;
+    }
 
     public Long getId() {
         return id;

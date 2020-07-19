@@ -1,18 +1,14 @@
 package com.example.bubblelayout.ui
 
-import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.example.bubblelayout.R
-import com.example.bubblelayout.base.BaseActivity
-import com.example.bubblelayout.utils.UserInfoUtil
+import com.example.bubblelayout.base.BaseVMActivity
 import com.example.bubblelayout.viewmodel.LoginViewModel
 import kotlinx.android.synthetic.main.activity_user_info.*
 
-class UserInfoActivity : BaseActivity() {
-    private lateinit var mViewModel: LoginViewModel
+class UserInfoActivity : BaseVMActivity<LoginViewModel>() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_user_info)
@@ -33,4 +29,6 @@ class UserInfoActivity : BaseActivity() {
         mViewModel.getUserInfo()
         mIvBack.setOnClickListener { finish() }
     }
+
+    override fun createViewModel(): Class<LoginViewModel> = LoginViewModel::class.java
 }

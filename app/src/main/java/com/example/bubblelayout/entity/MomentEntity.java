@@ -23,10 +23,20 @@ public class MomentEntity implements Serializable {
     private int id;
     private String content;
     private String content_url;
-    private List<?> images;
+    private List<FileEntity> images;
     private List<CommentEntity> comments;
-    private List<?> collects;
+    private List<CollectEntity> collects;
     private PublisherEntity publisher;
+
+    public String getRelease_time() {
+        return release_time;
+    }
+
+    public void setRelease_time(String release_time) {
+        this.release_time = release_time;
+    }
+
+    private String release_time;
 
     public PublisherEntity getPublisher() {
         return publisher;
@@ -60,11 +70,11 @@ public class MomentEntity implements Serializable {
         this.content_url = content_url;
     }
 
-    public List<?> getImages() {
+    public List<FileEntity> getImages() {
         return images;
     }
 
-    public void setImages(List<?> images) {
+    public void setImages(List<FileEntity> images) {
         this.images = images;
     }
 
@@ -76,11 +86,11 @@ public class MomentEntity implements Serializable {
         this.comments = comments;
     }
 
-    public List<?> getCollects() {
+    public List<CollectEntity> getCollects() {
         return collects;
     }
 
-    public void setCollects(List<?> collects) {
+    public void setCollects(List<CollectEntity> collects) {
         this.collects = collects;
     }
 

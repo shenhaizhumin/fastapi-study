@@ -70,8 +70,11 @@ dependencies {
     implementation('com.alibaba.android:vlayout:1.2.8@aar') {
         transitive = true
     }
-    implementation 'com.github.bumptech.glide:glide:4.4.0'
-    annotationProcessor 'com.github.bumptech.glide:compiler:4.4.0'
+    implementation 'com.github.bumptech.glide:glide:4.5.0'
+    annotationProcessor 'com.github.bumptech.glide:compiler:4.5.0'
+//    implementation 'com.zhy:base-rvadapter:3.0.3'
+    implementation 'com.lzy.widget:ninegridview:0.2.0'
+
     implementation 'com.android.support:design:28.0.0'
     implementation 'com.google.android.material:material:1.1.0'
     implementation 'androidx.lifecycle:lifecycle-extensions:2.2.0'
@@ -83,4 +86,5 @@ dependencies {
     implementation 'androidx.multidex:multidex:2.0.1'
 
     implementation 'com.kongzue.dialog_v3:dialog:3.2.1'
+    implementation 'me.kareluo.ui:popmenu:1.1.0'
 }

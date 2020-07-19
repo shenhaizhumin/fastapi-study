@@ -6,13 +6,13 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.example.bubblelayout.R
 import com.example.bubblelayout.api.body.UserBody
-import com.example.bubblelayout.base.BaseActivity
+import com.example.bubblelayout.base.BaseVMActivity
 import com.example.bubblelayout.utils.UserInfoUtil
 import com.example.bubblelayout.viewmodel.LoginViewModel
 import kotlinx.android.synthetic.main.activity_register.*
 
-class RegisterActivity : BaseActivity() {
-    private lateinit var mViewModel: LoginViewModel
+class RegisterActivity : BaseVMActivity<LoginViewModel>() {
+    override fun createViewModel(): Class<LoginViewModel> = LoginViewModel::class.java
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

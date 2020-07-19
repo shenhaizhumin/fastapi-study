@@ -29,7 +29,7 @@
             android:layout_height="wrap_content"
             android:text="深海住民"
             android:textColor="@color/colorMomentTitle"
-            android:textSize="@dimen/sp_12" />
+            android:textSize="@dimen/sp_13" />
 
         <TextView
             android:id="@+id/tv_item_content"
@@ -38,16 +38,19 @@
             android:layout_marginRight="@dimen/dp_10"
             android:text="工匠是把普通人培养成手艺人，来完成复杂精细的工作，而工程师思考的，是怎么让普通人不用学习手艺，也能完成复杂的工作。"
             android:textColor="@color/commonTextColor"
-            android:textSize="@dimen/sp_12" />
+            android:textSize="@dimen/sp_13" />
 
-        <androidx.recyclerview.widget.RecyclerView
+        <com.lzy.ninegrid.NineGridView
             android:id="@+id/rv_item_photo"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
-            app:spanCount="3" />
+            android:layout_marginTop="@dimen/dp_5"
+            android:layout_marginRight="@dimen/dp_10"
+            app:ngv_singleImageRatio="0.75"
+            app:ngv_singleImageSize="@dimen/dp_150" />
 
         <RelativeLayout
+            android:layout_marginTop="@dimen/dp_8"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginRight="@dimen/dp_10">
@@ -56,7 +59,6 @@
                 android:id="@+id/tv_item_time_ago"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="2 hrs ago"
                 android:textColor="@color/commonNormalColor"
                 android:textSize="@dimen/sp_10" />
 
@@ -69,14 +71,42 @@
                 android:textColor="@color/commonTextColor" />
         </RelativeLayout>
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rv_item_comments"
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/dp_10"
-            android:layout_marginRight="@dimen/dp_10"
-            android:background="#00aeaeae"
-            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
+            android:layout_marginTop="@dimen/dp_10">
+
+            <RelativeLayout
+                android:id="@+id/item_collect_view"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/colorCommentBg"
+                android:paddingLeft="@dimen/dp_8"
+                android:paddingRight="@dimen/dp_10">
+
+                <TextView
+                    android:id="@+id/tv_item_collects"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/colorMomentTitle"
+                    android:textSize="@dimen/sp_12" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/dp_0_5"
+                    android:layout_below="@+id/tv_item_collects"
+                    android:background="@color/commonColorGray" />
+            </RelativeLayout>
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rv_item_comments"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/item_collect_view"
+                android:layout_marginRight="@dimen/dp_10"
+                android:background="@color/colorCommentBg"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
+        </RelativeLayout>
     </LinearLayout>
 
     <View

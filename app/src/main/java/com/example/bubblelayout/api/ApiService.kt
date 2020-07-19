@@ -8,6 +8,7 @@ import io.reactivex.Observable
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
 import retrofit2.http.*
+import java.io.File
 
 interface ApiService {
 
@@ -41,10 +42,14 @@ interface ApiService {
     fun updateUser(@Body body: UserBody): Observable<BaseResponse<UserEntity>>
 
 
-    //    @Multipart
-//    @FormUrlEncoded
+    //    @FormUrlEncoded
+//    @Multipart
     @POST(Urls.uploadFile)
     fun uploadFile(@Body fileBody: RequestBody): Observable<BaseResponse<FileEntity>>
+
+    @Multipart
+    @POST(Urls.uploadFiles)
+    fun uploadFiles(@Part parts: List<@JvmSuppressWildcards MultipartBody.Part>): Observable<BaseResponse<MutableList<FileEntity>>>
 
 
     @GET(Urls.moments)
@@ -55,5 +60,11 @@ interface ApiService {
 
     @POST(Urls.publishComment)
     fun publishComment(@Body body: CommentBody): Observable<BaseResponse<CommentEntity>>
+
+    @POST(Urls.collect)
+    fun collect(@Body body: MomentBody): Observable<BaseResponse<CollectEntity>>
+
+    @GET(Urls.friend_moment)
+    fun friend_moment(@Path("user_id") id: Long): Observable<BaseResponse<FriendMomentData>>
 
 }

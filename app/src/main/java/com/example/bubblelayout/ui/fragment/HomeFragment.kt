@@ -12,6 +12,7 @@ import com.example.bubblelayout.adapter.HomeAdapter
 import com.example.bubblelayout.adapter.HomeComputerAdapter
 import com.example.bubblelayout.adapter.HomeListAdapter
 import com.example.bubblelayout.base.BaseFragment
+import com.example.bubblelayout.base.BaseVMFragment
 import com.example.bubblelayout.entity.HomeDataEntity
 import com.example.bubblelayout.ui.SearchActivity
 import com.example.bubblelayout.utils.GridSpacingItemDecoration
@@ -23,7 +24,7 @@ import kotlinx.android.synthetic.main.activity_search.*
 import kotlinx.android.synthetic.main.fragment_home.*
 import kotlinx.android.synthetic.main.fragment_home.ivChange
 
-class HomeFragment : BaseFragment() {
+class HomeFragment : BaseVMFragment<HomeViewModel>() {
     override fun getLayoutId(): Int = R.layout.fragment_home
     lateinit var homeViewModel: HomeViewModel
     private lateinit var mPhoneAdapter: HomeListAdapter
@@ -140,5 +141,7 @@ class HomeFragment : BaseFragment() {
             homeViewModel.getNodes()
         }
     }
+
+    override fun createViewModel(): Class<HomeViewModel> =HomeViewModel::class.java
 
 }

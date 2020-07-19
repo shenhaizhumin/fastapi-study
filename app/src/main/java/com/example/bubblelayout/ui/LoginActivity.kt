@@ -5,19 +5,18 @@ import android.os.Bundle
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.example.bubblelayout.R
-import com.example.bubblelayout.base.BaseActivity
+import com.example.bubblelayout.base.BaseVMActivity
 import com.example.bubblelayout.utils.UserInfoUtil
 import com.example.bubblelayout.viewmodel.LoginViewModel
 import kotlinx.android.synthetic.main.activity_main.*
 
-class LoginActivity : BaseActivity() {
-    val TAG = javaClass.simpleName
+class LoginActivity : BaseVMActivity<LoginViewModel>() {
+//    val TAG = javaClass.simpleName
 
     //    private lateinit var dataBinding: ActivityDataBindingBinding
     private var isAccount = false
     private var isPassword = false
     private var isProtocol = false
-    private lateinit var loginViewModel: LoginViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -27,14 +26,12 @@ class LoginActivity : BaseActivity() {
 //            R.layout.activity_data_binding
 //        )
         setContentView(R.layout.activity_main)
-        loginViewModel = ViewModelProvider(this).get(LoginViewModel::class.java)
-        loginViewModel.userLiveData.observe(this, Observer {
+        mViewModel = ViewModelProvider(this).get(LoginViewModel::class.java)
+        mViewModel.userLiveData.observe(this, Observer {
             //登录成功！
-            UserInfoUtil.setUserId(it.id)
-            UserInfoUtil.setAccessToken("Bearer ${it.access_token}")
             startActivity(Intent(this, HomeActivity::class.java))
         })
-        loginViewModel.errorLiveData.observe(this, Observer {
+        mViewModel.errorLiveData.observe(this, Observer {
             toast("$it")
         })
         etAccount.afterTextChanged {
@@ -73,9 +70,11 @@ class LoginActivity : BaseActivity() {
     }
 
     private fun login() {
-        loginViewModel.login(
+        mViewModel.login(
             etAccount.text.toString().trim(),
             etPassword.text.toString().trim()
         )
     }
+
+    override fun createViewModel(): Class<LoginViewModel> = LoginViewModel::class.java
 }

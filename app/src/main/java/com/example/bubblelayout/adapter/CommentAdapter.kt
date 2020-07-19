@@ -11,7 +11,7 @@ class CommentAdapter(layoutId: Int, dataList: MutableList<CommentEntity>?) :
 
     override fun convert(holder: BaseViewHolder, item: CommentEntity) {
         holder.setText(R.id.tv_item_nickName, item.publisher.nickname + "")
-            .setText(R.id.tv_item_content, ":${item.content}")
+            .setText(R.id.tv_item_content, "：${item.content}")
     }
 
 }

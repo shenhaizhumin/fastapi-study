@@ -1,15 +1,13 @@
 package com.example.bubblelayout.viewmodel
 
-import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import com.example.bubblelayout.api.ApiService
 import com.example.bubblelayout.api.RetrofitManager
-import com.example.bubblelayout.api.Urls
 import com.example.bubblelayout.api.body.UserBody
 import com.example.bubblelayout.base.BaseViewModel
 import com.example.bubblelayout.entity.FileEntity
 import com.example.bubblelayout.entity.UserEntity
-import io.reactivex.Observable
+import com.example.bubblelayout.utils.UserInfoUtil
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import okhttp3.*
@@ -34,11 +32,17 @@ class LoginViewModel : BaseViewModel() {
                 .subscribe({
                     if (it.code == 200) {
                         userLiveData.value = it.data
+                        UserInfoUtil.setUserId(it.data.id)
+                        UserInfoUtil.setAccessToken("Bearer ${it.data.access_token}")
+                        UserInfoUtil.setUserAvatar(it.data.avatar_url)
+                        UserInfoUtil.setUserNickname(it.data.nickname)
+                        UserInfoUtil.setMomentImage(it.data.moment_image)
                     } else {
                         errorLiveData.value = it.message
                     }
                 }, {
                     errorLiveData.value = "${it.message}"
+                    it.printStackTrace()
                 })
         )
     }
@@ -52,6 +56,11 @@ class LoginViewModel : BaseViewModel() {
                 .subscribe({
                     if (it.code == 200) {
                         userLiveData.value = it.data
+                        UserInfoUtil.setUserId(it.data.id)
+                        UserInfoUtil.setAccessToken("Bearer ${it.data.access_token}")
+                        UserInfoUtil.setUserAvatar(it.data.avatar_url)
+                        UserInfoUtil.setUserNickname(it.data.nickname)
+                        UserInfoUtil.setMomentImage(it.data.moment_image)
                     } else {
                         errorLiveData.value = it.message
                     }
@@ -121,22 +130,8 @@ class LoginViewModel : BaseViewModel() {
                     errorLiveData.value = "${it.message}"
                 })
         )
-//        compositeDisposable.add(
-//            Observable.create<String> {
-//                val body = upload(Urls.BASE_URL + Urls.uploadFile, file)
-//                val result = body.string()
-//                Log.e("tag", result)
-//                it.onNext(result)
-//                it.onComplete()
-//            }.subscribeOn(Schedulers.io())
-//                .observeOn(AndroidSchedulers.mainThread())
-//                .subscribe({
-//
-//                }, {
-//
-//                })
-//        )
     }
+
 
     @Throws(IOException::class)
     fun upload(url: String?, file: File): ResponseBody {
