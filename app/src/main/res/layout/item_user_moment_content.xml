@@ -6,9 +6,6 @@
 
     <com.lzy.ninegrid.NineGridView
         android:id="@+id/item_ngv"
-        app:ngv_maxSize="4"
-        app:ngv_singleImageSize="@dimen/dp_100"
-        app:ngv_singleImageRatio="1"
         app:ngv_mode="grid"
         android:layout_width="@dimen/dp_100"
         android:layout_height="@dimen/dp_100" />

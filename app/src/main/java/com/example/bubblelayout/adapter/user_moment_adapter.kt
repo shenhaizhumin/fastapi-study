@@ -1,5 +1,6 @@
 package com.example.bubblelayout.adapter
 
+import android.graphics.ImageDecoder
 import android.view.View
 import android.widget.TextView
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -38,12 +39,11 @@ class UserMomentAdapter(layoutId: Int, dataList: MutableList<UserMomentEntity>?)
 class UserMomentContentAdapter(layoutId: Int, dataList: MutableList<MomentEntity>?) :
     BaseQuickAdapter<MomentEntity, BaseViewHolder>(layoutId, dataList) {
     override fun convert(holder: BaseViewHolder, item: MomentEntity) {
+        holder.setText(R.id.item_tv_content, item.content)
         val ngv = holder.getView<NineGridView>(R.id.item_ngv)
-        holder.setText(R.id.tv_item_image_count, "共${item.images.size}张")
-            .setText(R.id.item_tv_content, item.content)
-        val tvCount = holder.getView<TextView>(R.id.tv_item_date)
+        val tvCount = holder.getView<TextView>(R.id.tv_item_image_count)
         if (item.images.size > 0) {
-            tvCount.text = item.content
+            tvCount.text = "共${item.images.size}张"
             tvCount.visibility = View.VISIBLE
         } else {
             tvCount.visibility = View.GONE

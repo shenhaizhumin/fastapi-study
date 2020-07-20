@@ -2,7 +2,7 @@ package com.example.bubblelayout.entity
 
 data class FriendMomentData(
     val list: List<UserMomentEntity>,
-    val user: FriendInfo
+    val friendInfo: FriendInfo
 )
 
 data class FriendInfo(

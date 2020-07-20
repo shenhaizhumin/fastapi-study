@@ -15,11 +15,11 @@ import com.example.bubblelayout.viewmodel.MomentViewModel
 import com.google.android.material.appbar.AppBarLayout
 import com.luck.picture.lib.tools.ScreenUtils
 import kotlinx.android.synthetic.main.activity_user_moment.*
-import kotlinx.android.synthetic.main.activity_user_moment.appBarLayout
 import kotlinx.android.synthetic.main.activity_user_moment.mIvUserImg
 import kotlinx.android.synthetic.main.activity_user_moment.mIvUserMomentBg
 import kotlinx.android.synthetic.main.activity_user_moment.mRvMoments
 import kotlinx.android.synthetic.main.activity_user_moment.mTvUserNickname
+import kotlin.math.abs
 
 class UserMomentActivity : BaseVMActivity<MomentViewModel>() {
     private lateinit var mAdapter: UserMomentAdapter
@@ -33,28 +33,28 @@ class UserMomentActivity : BaseVMActivity<MomentViewModel>() {
     }
 
     private fun init() {
-//        appBarLayout.addOnOffsetChangedListener(AppBarLayout.OnOffsetChangedListener { appBarLayout, verticalOffset ->
+        appBarLayout.addOnOffsetChangedListener(AppBarLayout.OnOffsetChangedListener { appBarLayout, verticalOffset ->
 //            Log.e(TAG, "offset:$verticalOffset")
-//            val total = mIvUserImg.height.toFloat()
-////            val total = appBarLayout.totalScrollRange.toFloat()
-////            val current = abs(verticalOffset)
-//            if (appBarLayout.totalScrollRange - abs(verticalOffset) <= total) {
-//                //这个时候变换背景色
-//                val start = appBarLayout.totalScrollRange - total
-//                val current = abs(verticalOffset) - start
-//                val alpha = current / total
-//                toolBar.alpha = alpha
+            val total = mIvUserImg.height.toFloat()
+//            val total = appBarLayout.totalScrollRange.toFloat()
+//            val current = abs(verticalOffset)
+            if (appBarLayout.totalScrollRange - abs(verticalOffset) <= total) {
+                //这个时候变换背景色
+                val start = appBarLayout.totalScrollRange - total
+                val current = abs(verticalOffset) - start
+                val alpha = current / total
+                toolBar.alpha = alpha
 //                mTvSetMomentImage.alpha = 1 - alpha
-//            } else {
-//                toolBar.alpha = 0f
-//            }
-//
-//        })
+            } else {
+                toolBar.alpha = 0f
+            }
+
+        })
         val transform = CornerTransform(this, ScreenUtils.dip2px(this, 4f).toFloat())
         mIvBack.setOnClickListener { finish() }
         mViewModel.mFriendMomentsLiveData.observe(this, Observer {
-            mTvUsername.text = it.user.nickname
-            mTvUserNickname.text = it.user.nickname
+            mTvUsername.text = it.friendInfo.nickname
+            mTvUserNickname.text = it.friendInfo.nickname
             Glide.with(this).asBitmap()
                 .load(UserInfoUtil.getUserAvatar())
                 .apply(
@@ -63,7 +63,7 @@ class UserMomentActivity : BaseVMActivity<MomentViewModel>() {
                 )
                 .into(mIvUserImg)
             Glide.with(this)
-                .load(it.user.moment_image)
+                .load(it.friendInfo.moment_image)
                 .into(mIvUserMomentBg)
             mAdapter.setNewInstance(it.list.toMutableList())
         })
