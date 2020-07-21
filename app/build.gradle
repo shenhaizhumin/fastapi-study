@@ -41,6 +41,8 @@ android {
     }
 }
 
+
+
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
@@ -87,4 +89,8 @@ dependencies {
 
     implementation 'com.kongzue.dialog_v3:dialog:3.2.1'
     implementation 'me.kareluo.ui:popmenu:1.1.0'
+
+    implementation "org.java-websocket:Java-WebSocket:1.4.0"
+
+//    implementation 'com.github.shrikanth7698:ChatView:v0.1.2'
 }

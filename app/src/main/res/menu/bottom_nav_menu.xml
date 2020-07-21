@@ -17,4 +17,9 @@
         android:id="@+id/navigation_account"
         android:icon="@drawable/ic_account_circle_black_24dp"
         android:title="" />
+
+    <item
+        android:id="@+id/navigation_chat"
+        android:icon="@drawable/ic_antoutline_message"
+        android:title="" />
 </menu>

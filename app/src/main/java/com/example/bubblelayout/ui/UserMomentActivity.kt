@@ -1,7 +1,6 @@
 package com.example.bubblelayout.ui
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import androidx.lifecycle.Observer
 import com.bumptech.glide.Glide
@@ -26,6 +25,7 @@ class UserMomentActivity : BaseVMActivity<MomentViewModel>() {
     private var userId: Int = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
+
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_user_moment)
         userId = intent.getIntExtra("user_id", 0)

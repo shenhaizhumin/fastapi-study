@@ -1,5 +1,6 @@
 package com.example.bubblelayout.ui
 
+import android.app.Activity
 import android.os.Bundle
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
@@ -20,8 +21,10 @@ class HomeActivity : BaseActivity() {
     private var instagramFragment: InstagramFragment? = null
     private var accountFragment: AccountFragment? = null
     private var momentFragment: MomentFragment? = null
+    private var chatFragment: ChatFragment? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
+//        window.addFlags(Activity)
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_home)
         initView()
@@ -59,7 +62,11 @@ class HomeActivity : BaseActivity() {
                     }
                     addFragment(momentFragment!!)
                 }
-                else -> {
+                R.id.navigation_chat -> {
+                    if (chatFragment == null) {
+                        chatFragment = ChatFragment()
+                    }
+                    addFragment(chatFragment!!)
                 }
             }
             return@setOnNavigationItemSelectedListener true

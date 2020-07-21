@@ -7,13 +7,16 @@ import android.text.TextWatcher
 import android.widget.EditText
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import com.example.bubblelayout.utils.StatusBar
+import com.example.bubblelayout.utils.ToolsUtil
 import com.jaeger.library.StatusBarUtil
 
 open class BaseActivity : AppCompatActivity() {
     val TAG = javaClass.simpleName
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        StatusBarUtil.setColor(this, Color.WHITE)
+        StatusBar.setStatusBar(Color.WHITE, this)
+//        ToolsUtil.MIUISetStatusBarLightMode(this, true)
         super.onCreate(savedInstanceState)
     }
 

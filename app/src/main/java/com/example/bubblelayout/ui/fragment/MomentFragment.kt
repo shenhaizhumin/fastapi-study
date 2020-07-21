@@ -39,7 +39,7 @@ import kotlin.math.abs
 
 class MomentFragment : BaseVMFragment<MomentViewModel>() {
     private lateinit var mAdapter: MomentAdapter
-    private var userId: Long = 0
+    private var userId: Int = 0
     override fun getLayoutId(): Int = R.layout.fragment_moment
     private lateinit var transform: CornerTransform
     private val limit = 10

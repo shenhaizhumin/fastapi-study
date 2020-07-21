@@ -21,4 +21,5 @@ object Urls {
     const val publishComment = "/moments/publishComment"
     const val collect = "/moments/collect"
     const val friend_moment = "/moments/{user_id}"
+    const val ws_uri = "ws://192.168.0.116:8021/ws"
 }

@@ -35,7 +35,7 @@ public class UserEntity implements Serializable {
      *         "access_token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VybmFtZSI6IjE5OTczNDg4NjgyIiwidWlkIjoiMjQwMjM0OTkxYTNkN2ZhNTFiOTJjZWY4ODdlZWJjNjBhYzU4YjJlNSIsImV4cCI6MTU5NDkwNzMzN30.Mp-YxtBsfSGgSGFimd1XOQCZ7XSM9UeX7qUdtPa70Ko"
      *     }
      */
-    private Long id;
+    private Integer id;
     private String uid;
     private String username;
     private String email;
@@ -52,11 +52,11 @@ public class UserEntity implements Serializable {
         this.moment_image = moment_image;
     }
 
-    public Long getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 

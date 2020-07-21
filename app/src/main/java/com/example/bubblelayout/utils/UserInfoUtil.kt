@@ -4,11 +4,11 @@ import com.blankj.utilcode.util.SPUtils
 
 object UserInfoUtil {
 
-    fun getUserId(): Long {
-        return SPUtils.getInstance().getLong("user_id")
+    fun getUserId(): Int {
+        return SPUtils.getInstance().getInt("user_id")
     }
 
-    fun setUserId(userId: Long) {
+    fun setUserId(userId: Int) {
         SPUtils.getInstance().put("user_id", userId)
     }
 
