@@ -21,6 +21,25 @@ class LoginViewModel : BaseViewModel() {
 
     val userLiveData = MutableLiveData<UserEntity>()
     val fileLiveData = MutableLiveData<FileEntity>()
+    val friendListLiveData = MutableLiveData<MutableList<UserEntity>>()
+    fun getFriendList() {
+        compositeDisposable.add(
+            RetrofitManager.getInstance().createService(ApiService::class.java)
+                .allUser()
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe({
+                    if (it.code == 200) {
+                        friendListLiveData.value = it.data
+                    } else {
+                        errorLiveData.value = it.message
+                    }
+                }, {
+                    errorLiveData.value = "${it.message}"
+                    it.printStackTrace()
+                })
+        )
+    }
 
     fun login(username: String, password: String) {
         val params = mapOf("username" to username, "password" to password)

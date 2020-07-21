@@ -40,9 +40,34 @@
         android:layout_below="@+id/et_msg"
         android:text="发送" />
 
+    <RelativeLayout
+        android:id="@+id/rl"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_45"
+        android:layout_below="@+id/btn_send">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="消息"
+            android:textColor="@color/commonTextColor"
+            android:textSize="@dimen/sp_14" />
+
+        <TextView
+            android:id="@+id/friendList"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:text="通讯录" />
+    </RelativeLayout>
+
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/mRvFriends"
+        android:id="@+id/mRvChat"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_below="@+id/rl"
+
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
 </RelativeLayout>

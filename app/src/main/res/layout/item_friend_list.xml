@@ -8,40 +8,18 @@
 
     <ImageView
         android:id="@+id/iv_item_user_icon"
-        android:layout_width="@dimen/dp_50"
-        android:layout_height="@dimen/dp_50" />
-
-    <RelativeLayout
-        android:layout_width="wrap_content"
-        android:layout_height="@dimen/dp_50"
-        android:layout_marginLeft="@dimen/dp_8"
-        android:layout_toRightOf="@+id/iv_item_user_icon">
-
-        <TextView
-            android:id="@+id/tv_item_username"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/dp_2"
-            android:textColor="@color/commonTextColor"
-            android:textSize="@dimen/sp_14" />
-
-        <TextView
-            android:id="@+id/tv_item_latest_msg"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:layout_marginBottom="@dimen/dp_2"
-            android:textColor="@color/commonNormalColor"
-            android:textSize="@dimen/sp_12" />
-    </RelativeLayout>
+        android:layout_width="@dimen/dp_40"
+        android:layout_height="@dimen/dp_40" />
 
     <TextView
-        android:id="@+id/tv_item_time"
+        android:id="@+id/tv_item_username"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
-        android:layout_marginTop="@dimen/dp_2"
-        android:textColor="@color/commonNormalColor"
-        android:textSize="@dimen/sp_12" />
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="@dimen/dp_10"
+        android:layout_marginBottom="@dimen/dp_2"
+        android:layout_toRightOf="@+id/iv_item_user_icon"
+        android:textColor="@color/commonTextColor"
+        android:textSize="@dimen/sp_14" />
 
 </RelativeLayout>

@@ -3,11 +3,14 @@ package com.example.bubblelayout;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 
+import com.example.bubblelayout.db.ChatMessageEntityDao;
 import com.example.bubblelayout.db.DaoMaster;
 import com.example.bubblelayout.db.DaoSession;
 import com.example.bubblelayout.db.StudentEntityDao;
 import com.example.bubblelayout.db.TeacherEntityDao;
+import com.example.bubblelayout.entity.ChatMessageEntity;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class DbController {
@@ -36,6 +39,7 @@ public class DbController {
      */
     private TeacherEntityDao teacherEntityDao;
     private StudentEntityDao studentEntityDao;
+    private ChatMessageEntityDao chatMessageEntityDao;
 
     private static DbController mDbController;
 
@@ -54,14 +58,14 @@ public class DbController {
     }
 
 
-
-    public  void init(Context context){
+    public void init(Context context) {
         this.context = context;
         mHelper = new DaoMaster.DevOpenHelper(context, "person.db", null);
         mDaoMaster = new DaoMaster(getWritableDatabase());
         mDaoSession = mDaoMaster.newSession();
         teacherEntityDao = mDaoSession.getTeacherEntityDao();
         studentEntityDao = mDaoSession.getStudentEntityDao();
+        chatMessageEntityDao = mDaoSession.getChatMessageEntityDao();
     }
 
     /**
@@ -97,9 +101,10 @@ public class DbController {
         teacherEntityDao.insertOrReplace(teacherEntity);
     }
 
-    public void clearAll(){
+    public void clearAll() {
         teacherEntityDao.deleteAll();
     }
+
     /**
      * 插入一条记录，表里面要没有与之相同的记录
      *
@@ -107,6 +112,49 @@ public class DbController {
      */
     public long insert(TeacherEntity teacherEntity) {
         return teacherEntityDao.insert(teacherEntity);
+    }
+
+    public void insertChatMsg(ChatMessageEntity chatMessageEntity) {
+        chatMessageEntityDao.insertOrReplace(chatMessageEntity);
+    }
+
+    /**
+     * 查询单聊所有消息
+     *
+     * @param user_id
+     * @param friend_id
+     * @return
+     */
+    public List<ChatMessageEntity> findChatMsgById(Integer user_id, Integer friend_id) {
+        return chatMessageEntityDao.queryBuilder().where(ChatMessageEntityDao.Properties.Friend_id.eq(friend_id), ChatMessageEntityDao.Properties.User_id.eq(user_id)).orderDesc(ChatMessageEntityDao.Properties.Post_date).build().list();
+    }
+
+    /**
+     * 查询用户所有消息
+     *
+     * @param user_id
+     * @return
+     */
+    public List<ChatMessageEntity> findChatMsgById(Integer user_id) {
+        return chatMessageEntityDao.queryBuilder().where(ChatMessageEntityDao.Properties.User_id.eq(user_id)).orderDesc(ChatMessageEntityDao.Properties.Post_date).build().list();
+    }
+
+    /**
+     * 查询所有单聊记录的最新记录
+     *
+     * @param friendIds
+     * @return
+     */
+    public List<ChatMessageEntity> findUserLatestMsg(List<Integer> friendIds) {
+        List<ChatMessageEntity> list = new ArrayList<>();
+        for (int i = 0; i < friendIds.size(); i++) {
+            int friend_id = friendIds.get(i);
+            List<ChatMessageEntity> temp = chatMessageEntityDao.queryBuilder().where(ChatMessageEntityDao.Properties.Friend_id.eq(friend_id)).orderDesc(ChatMessageEntityDao.Properties.Post_date).build().list();
+            if (temp.size() > 0) {
+                list.add(temp.get(0));
+            }
+        }
+        return list;
     }
 
 //    /**

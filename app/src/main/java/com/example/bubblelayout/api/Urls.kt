@@ -1,7 +1,7 @@
 package com.example.bubblelayout.api
 
 object Urls {
-    val BASE_URL = "http://39.107.77.70"
+    val BASE_URL = "http://10.0.2.2:8021"
 
     const val session = "/login"
     const val nodes =
@@ -21,5 +21,5 @@ object Urls {
     const val publishComment = "/moments/publishComment"
     const val collect = "/moments/collect"
     const val friend_moment = "/moments/{user_id}"
-    const val ws_uri = "ws://192.168.0.116:8021/ws"
+    const val ws_uri = "ws://10.0.2.2:8021/ws"
 }

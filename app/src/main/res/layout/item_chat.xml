@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="@dimen/dp_10">
+
+    <TextView
+        android:id="@+id/chat_item_date"
+        style="@style/text_body"
+        android:layout_gravity="center_horizontal"
+        android:visibility="gone" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/chat_item_right_header"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:layout_alignParentRight="true"
+            android:scaleType="fitCenter" />
+
+        <TextView
+            android:id="@+id/tv_item_right_content"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="@dimen/dp_5"
+            android:layout_toLeftOf="@+id/chat_item_right_header"
+            android:textColor="@color/commonTextColor" />
+
+        <ImageView
+            android:id="@+id/chat_item_left_header"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:scaleType="fitCenter" />
+
+        <TextView
+            android:id="@+id/tv_item_left_content"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/dp_5"
+            android:layout_toRightOf="@+id/chat_item_left_header"
+            android:textColor="@color/commonTextColor" />
+    </RelativeLayout>
+
+</LinearLayout>

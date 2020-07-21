@@ -35,12 +35,11 @@ android {
         }
     }
     greendao {
-        schemaVersion 3 //当前数据库版本
+        schemaVersion 4 //当前数据库版本
         daoPackage 'com.example.bubblelayout.db'
         targetGenDir 'src/main/java'//存放位置
     }
 }
-
 
 
 dependencies {
@@ -93,4 +92,5 @@ dependencies {
     implementation "org.java-websocket:Java-WebSocket:1.4.0"
 
 //    implementation 'com.github.shrikanth7698:ChatView:v0.1.2'
+    implementation 'com.github.lguipeng:BubbleView:1.0.1'
 }

@@ -12,5 +12,17 @@
     <style name="SplashTheme" parent="AppTheme">
         <item name="android:windowBackground">@drawable/ic_splash_bg</item>
     </style>
+    <style name="text_subhead_black">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textColor">@color/commonTextColor</item>
+        <item name="android:textSize">@dimen/sp_12</item>
+    </style>
 
+    <style name="text_body">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textColor">@color/commonNormalColor</item>
+        <item name="android:textSize">@dimen/sp_10</item>
+    </style>
 </resources>

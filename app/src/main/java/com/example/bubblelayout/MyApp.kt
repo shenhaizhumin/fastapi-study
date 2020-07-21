@@ -15,8 +15,8 @@ class MyApp : Application() {
 
     override fun onCreate() {
         super.onCreate()
-        ImageLoader.getInstance().init(this)
         DbController.getInstance().init(this)
+        ImageLoader.getInstance().init(this)
         DialogSettings.style = (DialogSettings.STYLE.STYLE_IOS)
         DialogSettings.theme = DialogSettings.THEME.DARK
         DialogSettings.menuTextInfo = TextInfo().apply {

@@ -18,7 +18,9 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".ui.UserMomentActivity"></activity>
+        <activity android:name=".ui.FriendListActivity"></activity>
+        <activity android:name=".ui.ChatActivity" />
+        <activity android:name=".ui.UserMomentActivity" />
         <activity android:name=".ui.PublishMomentActivity" />
         <activity android:name=".ui.UserInfoActivity" />
         <activity android:name=".ui.RegisterActivity" />

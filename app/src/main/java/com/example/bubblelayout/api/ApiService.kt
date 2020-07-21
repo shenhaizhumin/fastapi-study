@@ -16,6 +16,9 @@ interface ApiService {
     @POST(Urls.session)
     fun session(@FieldMap map: Map<String, String>): Observable<BaseResponse<UserEntity>>
 
+    @GET("/allUser")
+    fun allUser(): Observable<BaseResponse<MutableList<UserEntity>>>
+
     @GET(Urls.nodes)
     fun node(): Observable<BaseResponse<Any>>
 
