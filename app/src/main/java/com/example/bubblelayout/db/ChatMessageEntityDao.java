@@ -29,7 +29,7 @@ public class ChatMessageEntityDao extends AbstractDao<ChatMessageEntity, Long> {
         public final static Property Friend_id = new Property(2, Integer.class, "friend_id", false, "FRIEND_ID");
         public final static Property Content = new Property(3, String.class, "content", false, "CONTENT");
         public final static Property Type = new Property(4, Integer.class, "type", false, "TYPE");
-        public final static Property Post_date = new Property(5, java.util.Date.class, "post_date", false, "POST_DATE");
+        public final static Property Post_date = new Property(5, Long.class, "post_date", false, "POST_DATE");
         public final static Property Is_read = new Property(6, Boolean.class, "is_read", false, "IS_READ");
         public final static Property IsmineChat = new Property(7, Integer.class, "ismineChat", false, "ISMINE_CHAT");
         public final static Property DeleteChat = new Property(8, Integer.class, "deleteChat", false, "DELETE_CHAT");
@@ -102,9 +102,9 @@ public class ChatMessageEntityDao extends AbstractDao<ChatMessageEntity, Long> {
             stmt.bindLong(5, type);
         }
  
-        java.util.Date post_date = entity.getPost_date();
+        Long post_date = entity.getPost_date();
         if (post_date != null) {
-            stmt.bindLong(6, post_date.getTime());
+            stmt.bindLong(6, post_date);
         }
  
         Boolean is_read = entity.getIs_read();
@@ -172,9 +172,9 @@ public class ChatMessageEntityDao extends AbstractDao<ChatMessageEntity, Long> {
             stmt.bindLong(5, type);
         }
  
-        java.util.Date post_date = entity.getPost_date();
+        Long post_date = entity.getPost_date();
         if (post_date != null) {
-            stmt.bindLong(6, post_date.getTime());
+            stmt.bindLong(6, post_date);
         }
  
         Boolean is_read = entity.getIs_read();
@@ -226,7 +226,7 @@ public class ChatMessageEntityDao extends AbstractDao<ChatMessageEntity, Long> {
             cursor.isNull(offset + 2) ? null : cursor.getInt(offset + 2), // friend_id
             cursor.isNull(offset + 3) ? null : cursor.getString(offset + 3), // content
             cursor.isNull(offset + 4) ? null : cursor.getInt(offset + 4), // type
-            cursor.isNull(offset + 5) ? null : new java.util.Date(cursor.getLong(offset + 5)), // post_date
+            cursor.isNull(offset + 5) ? null : cursor.getLong(offset + 5), // post_date
             cursor.isNull(offset + 6) ? null : cursor.getShort(offset + 6) != 0, // is_read
             cursor.isNull(offset + 7) ? null : cursor.getInt(offset + 7), // ismineChat
             cursor.isNull(offset + 8) ? null : cursor.getInt(offset + 8), // deleteChat
@@ -245,7 +245,7 @@ public class ChatMessageEntityDao extends AbstractDao<ChatMessageEntity, Long> {
         entity.setFriend_id(cursor.isNull(offset + 2) ? null : cursor.getInt(offset + 2));
         entity.setContent(cursor.isNull(offset + 3) ? null : cursor.getString(offset + 3));
         entity.setType(cursor.isNull(offset + 4) ? null : cursor.getInt(offset + 4));
-        entity.setPost_date(cursor.isNull(offset + 5) ? null : new java.util.Date(cursor.getLong(offset + 5)));
+        entity.setPost_date(cursor.isNull(offset + 5) ? null : cursor.getLong(offset + 5));
         entity.setIs_read(cursor.isNull(offset + 6) ? null : cursor.getShort(offset + 6) != 0);
         entity.setIsmineChat(cursor.isNull(offset + 7) ? null : cursor.getInt(offset + 7));
         entity.setDeleteChat(cursor.isNull(offset + 8) ? null : cursor.getInt(offset + 8));

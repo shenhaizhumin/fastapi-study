@@ -2,6 +2,9 @@ package com.example.bubblelayout.ws;
 
 import android.util.Log;
 
+import com.example.bubblelayout.utils.UserInfoUtil;
+import com.google.gson.Gson;
+
 import org.java_websocket.client.WebSocketClient;
 import org.java_websocket.drafts.Draft_6455;
 import org.java_websocket.handshake.ServerHandshake;
@@ -20,6 +23,8 @@ public class JWebSocketClient extends WebSocketClient {
     @Override
     public void onOpen(ServerHandshake handshakedata) {
         Log.e("JWebSocketClient", "onOpen()");
+//        String json = "{'user_id':" + UserInfoUtil.INSTANCE.getUserId() + "}";
+        WsManager.getInstance().sendMsg(new Gson().toJson(new WsMsg(UserInfoUtil.INSTANCE.getUserId())));
     }
 
     @Override

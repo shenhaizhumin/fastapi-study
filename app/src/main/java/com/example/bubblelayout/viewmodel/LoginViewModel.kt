@@ -21,8 +21,8 @@ class LoginViewModel : BaseViewModel() {
 
     val userLiveData = MutableLiveData<UserEntity>()
     val fileLiveData = MutableLiveData<FileEntity>()
-    val friendListLiveData = MutableLiveData<MutableList<UserEntity>>()
-    fun getFriendList() {
+    val contactLiveData = MutableLiveData<MutableList<UserEntity>>()
+    fun getContacts() {
         compositeDisposable.add(
             RetrofitManager.getInstance().createService(ApiService::class.java)
                 .allUser()
@@ -30,7 +30,7 @@ class LoginViewModel : BaseViewModel() {
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({
                     if (it.code == 200) {
-                        friendListLiveData.value = it.data
+                        contactLiveData.value = it.data
                     } else {
                         errorLiveData.value = it.message
                     }

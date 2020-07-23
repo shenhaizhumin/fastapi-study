@@ -114,8 +114,8 @@ public class DbController {
         return teacherEntityDao.insert(teacherEntity);
     }
 
-    public void insertChatMsg(ChatMessageEntity chatMessageEntity) {
-        chatMessageEntityDao.insertOrReplace(chatMessageEntity);
+    public long insertChatMsg(ChatMessageEntity chatMessageEntity) {
+        return chatMessageEntityDao.insert(chatMessageEntity);
     }
 
     /**
@@ -126,7 +126,7 @@ public class DbController {
      * @return
      */
     public List<ChatMessageEntity> findChatMsgById(Integer user_id, Integer friend_id) {
-        return chatMessageEntityDao.queryBuilder().where(ChatMessageEntityDao.Properties.Friend_id.eq(friend_id), ChatMessageEntityDao.Properties.User_id.eq(user_id)).orderDesc(ChatMessageEntityDao.Properties.Post_date).build().list();
+        return chatMessageEntityDao.queryBuilder().where(ChatMessageEntityDao.Properties.Friend_id.eq(friend_id), ChatMessageEntityDao.Properties.User_id.eq(user_id)).orderAsc(ChatMessageEntityDao.Properties.Post_date).build().list();
     }
 
     /**

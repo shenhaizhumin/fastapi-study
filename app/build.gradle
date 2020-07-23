@@ -93,4 +93,6 @@ dependencies {
 
 //    implementation 'com.github.shrikanth7698:ChatView:v0.1.2'
     implementation 'com.github.lguipeng:BubbleView:1.0.1'
+
+    implementation 'org.greenrobot:eventbus:3.2.0'
 }

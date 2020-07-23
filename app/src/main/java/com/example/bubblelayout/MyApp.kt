@@ -13,8 +13,14 @@ import com.lzy.ninegrid.NineGridView
 
 class MyApp : Application() {
 
+
+    companion object {
+        lateinit var context: Context
+    }
+
     override fun onCreate() {
         super.onCreate()
+        context = this
         DbController.getInstance().init(this)
         ImageLoader.getInstance().init(this)
         DialogSettings.style = (DialogSettings.STYLE.STYLE_IOS)
@@ -22,7 +28,7 @@ class MyApp : Application() {
         DialogSettings.menuTextInfo = TextInfo().apply {
             fontColor = R.color.commonTextColor
         }
-        DialogSettings.titleTextInfo= TextInfo().apply {
+        DialogSettings.titleTextInfo = TextInfo().apply {
             fontColor = R.color.commonTextColor
         }
         DialogSettings.init()
