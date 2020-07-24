@@ -10,6 +10,8 @@ import com.example.bubblelayout.adapter.ChatAdapter
 import com.example.bubblelayout.api.Urls
 import com.example.bubblelayout.base.BaseVMActivity
 import com.example.bubblelayout.entity.ChatMessageEntity
+import com.example.bubblelayout.entity.Conversation
+import com.example.bubblelayout.entity.MessageEntity
 import com.example.bubblelayout.utils.CornerTransform
 import com.example.bubblelayout.utils.UserInfoUtil
 import com.example.bubblelayout.viewmodel.ChatViewModel
@@ -26,12 +28,12 @@ class ChatActivity : BaseVMActivity<ChatViewModel>() {
     private lateinit var dbController: DbController
     private lateinit var layoutManager: LinearLayoutManager
     private var userId: Int = 0
-    private var friendId: Int = 0
-    private lateinit var friend_nickname: String
-    private lateinit var friend_avatar_url: String
-    private lateinit var avatar_url: String
-    private lateinit var mineNickName: String
+    private lateinit var msgObjectName: String
     private lateinit var adapter: ChatAdapter
+    private lateinit var msgTitle: String
+    private lateinit var avatar_url: String
+    private lateinit var friend_avatar_url: String
+    private var targetId: Int = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -44,19 +46,20 @@ class ChatActivity : BaseVMActivity<ChatViewModel>() {
         layoutManager = LinearLayoutManager(this)
         dbController = DbController.getInstance()
         userId = UserInfoUtil.getUserId()
-        friendId = intent.getIntExtra("friend_id", 0)
-        friend_nickname = intent.getStringExtra("friend_nickname")
-        friend_avatar_url = intent.getStringExtra("friend_avatar_url")
-        mineNickName = UserInfoUtil.getUserNickname() + ""
-//        val chatEntity = intent.getSerializableExtra("chatEntity") as ChatMessageEntity
-        mIvBackIcon.setOnClickListener { finish() }
-        mTvFriendNickname.text = friend_nickname
-        avatar_url = UserInfoUtil.getUserAvatar() + ""
-        val data = DbController.getInstance().findChatMsgById(userId, friendId)
-        data.forEach {
-            it.friend_avatar_url = friend_avatar_url
-            it.mine_avatar_url = avatar_url
+        val temp = intent.getStringExtra("objectName")
+        if (temp != null) {
+            msgObjectName = temp
+        } else {
+            msgObjectName = UUID.randomUUID().toString()
         }
+
+        msgTitle = intent.getStringExtra("msgTitle")
+        friend_avatar_url = intent.getStringExtra("friend_avatar_url")
+        targetId = intent.getIntExtra("targetId", 0)
+        mIvBackIcon.setOnClickListener { finish() }
+        mTvFriendNickname.text = msgTitle
+        avatar_url = UserInfoUtil.getUserAvatar() + ""
+        val data = DbController.getInstance().getMessageList(msgObjectName)
         adapter = ChatAdapter(R.layout.item_chat, data)
         adapter.transform = CornerTransform(this, ScreenUtils.dip2px(this, 4f).toFloat())
         adapter.mineAvatarUrl = "$avatar_url"
@@ -70,19 +73,20 @@ class ChatActivity : BaseVMActivity<ChatViewModel>() {
         btnSend.setOnClickListener {
             val msg = mEtMessage.text.toString().trim()
             if (msg.isNotEmpty()) {
-                val chatMsg = ChatMessageEntity()
+                val chatMsg = MessageEntity()
                 chatMsg.content = msg
-                chatMsg.friend_nickname = friend_nickname
-                chatMsg.nickname = mineNickName
-                chatMsg.friend_avatar_url = friend_avatar_url
-                chatMsg.mine_avatar_url = avatar_url
-                chatMsg.friend_id = friendId
-                chatMsg.user_id = userId
-                chatMsg.ismineChat = 0 //发送者标记为自己
-                chatMsg.post_date = System.currentTimeMillis()
-                val insertChatMsg = dbController.insertChatMsg(chatMsg)
+                chatMsg.receivedTime = null
+                chatMsg.senderUserId = userId
+                chatMsg.sentTime = System.currentTimeMillis()
+                chatMsg.conversationType = Conversation.ConversationType.PRIVATE.value
+                chatMsg.messageDirection = Conversation.MessageDirection.SENT.value
+                chatMsg.objectName = msgObjectName
+                chatMsg.targetId = targetId
+//                chatMsg.objectName = UUID.randomUUID().toString()
+                val insertChatMsg = dbController.insertMessage(chatMsg)
                 Log.e(TAG, "insertMsg:$insertChatMsg")
                 //发消息
+                EventBus.getDefault().post(chatMsg)
                 WsManager.getInstance().sendMsg(Gson().toJson(chatMsg))
                 adapter.addData(chatMsg)
                 mRvChat.smoothScrollToPosition(adapter.data.size - 1)
@@ -93,15 +97,16 @@ class ChatActivity : BaseVMActivity<ChatViewModel>() {
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
-    fun onEvent(receiveChat: ChatMessageEntity) {
+    fun onEvent(receiveChat: MessageEntity) {
         //收到消息
 //        val receiveChat = Gson().fromJson(it, ChatMessageEntity::class.java)
-        receiveChat.ismineChat = 1
+//        receiveChat.ismineChat = 1
 //        receiveChat.friend_nickname = friend_nickname
 //        receiveChat.nickname = mineNickName
 //        receiveChat.friend_avatar_url = friend_avatar_url
 //        receiveChat.mine_avatar_url = avatar_url
-        dbController.insertChatMsg(receiveChat)
+        val insertChatMsg = dbController.insertMessage(receiveChat)
+        Log.e(TAG, "insertMsg:$insertChatMsg")
         adapter.addData(receiveChat)
         mRvChat.smoothScrollToPosition(adapter.data.size - 1)
     }

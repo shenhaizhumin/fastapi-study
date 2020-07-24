@@ -1,6 +1,7 @@
 package com.example.bubblelayout.viewmodel
 
 import androidx.lifecycle.MutableLiveData
+import com.example.bubblelayout.DbController
 import com.example.bubblelayout.api.ApiService
 import com.example.bubblelayout.api.RetrofitManager
 import com.example.bubblelayout.api.body.UserBody
@@ -31,6 +32,7 @@ class LoginViewModel : BaseViewModel() {
                 .subscribe({
                     if (it.code == 200) {
                         contactLiveData.value = it.data
+                        DbController.getInstance().saveUsers(it.data)
                     } else {
                         errorLiveData.value = it.message
                     }
@@ -51,7 +53,7 @@ class LoginViewModel : BaseViewModel() {
                 .subscribe({
                     if (it.code == 200) {
                         userLiveData.value = it.data
-                        UserInfoUtil.setUserId(it.data.id)
+                        UserInfoUtil.setUserId(it.data.userId)
                         UserInfoUtil.setAccessToken("Bearer ${it.data.access_token}")
                         UserInfoUtil.setUserAvatar(it.data.avatar_url)
                         UserInfoUtil.setUserNickname(it.data.nickname)
@@ -75,7 +77,7 @@ class LoginViewModel : BaseViewModel() {
                 .subscribe({
                     if (it.code == 200) {
                         userLiveData.value = it.data
-                        UserInfoUtil.setUserId(it.data.id)
+                        UserInfoUtil.setUserId(it.data.userId)
                         UserInfoUtil.setAccessToken("Bearer ${it.data.access_token}")
                         UserInfoUtil.setUserAvatar(it.data.avatar_url)
                         UserInfoUtil.setUserNickname(it.data.nickname)

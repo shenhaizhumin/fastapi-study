@@ -4,7 +4,6 @@ import org.greenrobot.greendao.annotation.Entity;
 import org.greenrobot.greendao.annotation.Id;
 
 import java.io.Serializable;
-import java.util.Date;
 
 import org.greenrobot.greendao.annotation.Generated;
 
@@ -24,6 +23,45 @@ public class ChatMessageEntity implements Serializable {
     private Integer deleteChat;
     private String nickname;
     private String friend_avatar_url;
+    private String mine_avatar_url;
+    private String friend_nickname;
+    private Boolean isSave;
+    private String uid ;
+
+    @Generated(hash = 700979866)
+    public ChatMessageEntity(Long id, Integer user_id, Integer friend_id,
+            String content, Integer type, Long post_date, Boolean is_read,
+            Integer ismineChat, Integer deleteChat, String nickname,
+            String friend_avatar_url, String mine_avatar_url,
+            String friend_nickname, Boolean isSave, String uid) {
+        this.id = id;
+        this.user_id = user_id;
+        this.friend_id = friend_id;
+        this.content = content;
+        this.type = type;
+        this.post_date = post_date;
+        this.is_read = is_read;
+        this.ismineChat = ismineChat;
+        this.deleteChat = deleteChat;
+        this.nickname = nickname;
+        this.friend_avatar_url = friend_avatar_url;
+        this.mine_avatar_url = mine_avatar_url;
+        this.friend_nickname = friend_nickname;
+        this.isSave = isSave;
+        this.uid = uid;
+    }
+
+    @Generated(hash = 1666122499)
+    public ChatMessageEntity() {
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
 
     public Integer getUser_id() {
         return user_id;
@@ -121,41 +159,27 @@ public class ChatMessageEntity implements Serializable {
         this.friend_nickname = friend_nickname;
     }
 
-    private String mine_avatar_url;
-
-    public Long getId() {
-        return id;
+    public Boolean getSave() {
+        return isSave;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void setSave(Boolean save) {
+        isSave = save;
     }
 
-    private String friend_nickname;
-
-    @Generated(hash = 2063700073)
-    public ChatMessageEntity(Long id, Integer user_id, Integer friend_id,
-            String content, Integer type, Long post_date, Boolean is_read,
-            Integer ismineChat, Integer deleteChat, String nickname,
-            String friend_avatar_url, String mine_avatar_url,
-            String friend_nickname) {
-        this.id = id;
-        this.user_id = user_id;
-        this.friend_id = friend_id;
-        this.content = content;
-        this.type = type;
-        this.post_date = post_date;
-        this.is_read = is_read;
-        this.ismineChat = ismineChat;
-        this.deleteChat = deleteChat;
-        this.nickname = nickname;
-        this.friend_avatar_url = friend_avatar_url;
-        this.mine_avatar_url = mine_avatar_url;
-        this.friend_nickname = friend_nickname;
+    public String getUid() {
+        return uid;
     }
 
-    @Generated(hash = 1666122499)
-    public ChatMessageEntity() {
+    public void setUid(String uid) {
+        this.uid = uid;
     }
 
+    public Boolean getIsSave() {
+        return this.isSave;
+    }
+
+    public void setIsSave(Boolean isSave) {
+        this.isSave = isSave;
+    }
 }

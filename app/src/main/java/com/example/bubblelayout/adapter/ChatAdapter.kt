@@ -9,24 +9,27 @@ import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.viewholder.BaseViewHolder
 import com.example.bubblelayout.R
 import com.example.bubblelayout.entity.ChatMessageEntity
+import com.example.bubblelayout.entity.Conversation
+import com.example.bubblelayout.entity.MessageEntity
 import com.example.bubblelayout.entity.UserEntity
 import com.example.bubblelayout.utils.CornerTransform
 import java.text.SimpleDateFormat
 
-class ChatAdapter(layoutId: Int, dataList: MutableList<ChatMessageEntity>?) :
-    BaseQuickAdapter<ChatMessageEntity, BaseViewHolder>(layoutId, dataList) {
+class ChatAdapter(layoutId: Int, dataList: MutableList<MessageEntity>?) :
+    BaseQuickAdapter<MessageEntity, BaseViewHolder>(layoutId, dataList) {
 
     lateinit var transform: CornerTransform
     var mineAvatarUrl: String = ""
     var friendAvatarUrl: String = ""
-    override fun convert(holder: BaseViewHolder, item: ChatMessageEntity) {
-        holder.setText(R.id.chat_item_date, SimpleDateFormat("HH:mm").format(item.post_date))
+    override fun convert(holder: BaseViewHolder, item: MessageEntity) {
+        if (item.receivedTime != null)
+            holder.setText(R.id.chat_item_date, SimpleDateFormat("HH:mm").format(item.receivedTime))
         val leftImageView = holder.getView<ImageView>(R.id.chat_item_left_header)
         val rightImageView = holder.getView<ImageView>(R.id.chat_item_right_header)
         val leftTv = holder.getView<TextView>(R.id.tv_item_left_content)
         val rightTv = holder.getView<TextView>(R.id.tv_item_right_content)
-        if (item.ismineChat == 0) {
-            //mine chat
+        if (item.messageDirection == Conversation.MessageDirection.SENT.value) {
+            //发送
             rightImageView.visibility = View.VISIBLE
             rightTv.visibility = View.VISIBLE
             leftTv.visibility = View.GONE
@@ -40,6 +43,7 @@ class ChatAdapter(layoutId: Int, dataList: MutableList<ChatMessageEntity>?) :
                 .into(rightImageView)
             rightTv.text = "${item.content}"
         } else {
+            //接收
             rightImageView.visibility = View.GONE
             rightTv.visibility = View.GONE
 

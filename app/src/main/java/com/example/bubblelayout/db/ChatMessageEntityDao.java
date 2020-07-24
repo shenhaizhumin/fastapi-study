@@ -37,6 +37,8 @@ public class ChatMessageEntityDao extends AbstractDao<ChatMessageEntity, Long> {
         public final static Property Friend_avatar_url = new Property(10, String.class, "friend_avatar_url", false, "FRIEND_AVATAR_URL");
         public final static Property Mine_avatar_url = new Property(11, String.class, "mine_avatar_url", false, "MINE_AVATAR_URL");
         public final static Property Friend_nickname = new Property(12, String.class, "friend_nickname", false, "FRIEND_NICKNAME");
+        public final static Property IsSave = new Property(13, Boolean.class, "isSave", false, "IS_SAVE");
+        public final static Property Uid = new Property(14, String.class, "uid", false, "UID");
     }
 
 
@@ -64,7 +66,9 @@ public class ChatMessageEntityDao extends AbstractDao<ChatMessageEntity, Long> {
                 "\"NICKNAME\" TEXT," + // 9: nickname
                 "\"FRIEND_AVATAR_URL\" TEXT," + // 10: friend_avatar_url
                 "\"MINE_AVATAR_URL\" TEXT," + // 11: mine_avatar_url
-                "\"FRIEND_NICKNAME\" TEXT);"); // 12: friend_nickname
+                "\"FRIEND_NICKNAME\" TEXT," + // 12: friend_nickname
+                "\"IS_SAVE\" INTEGER," + // 13: isSave
+                "\"UID\" TEXT);"); // 14: uid
     }
 
     /** Drops the underlying database table. */
@@ -141,6 +145,16 @@ public class ChatMessageEntityDao extends AbstractDao<ChatMessageEntity, Long> {
         if (friend_nickname != null) {
             stmt.bindString(13, friend_nickname);
         }
+ 
+        Boolean isSave = entity.getIsSave();
+        if (isSave != null) {
+            stmt.bindLong(14, isSave ? 1L: 0L);
+        }
+ 
+        String uid = entity.getUid();
+        if (uid != null) {
+            stmt.bindString(15, uid);
+        }
     }
 
     @Override
@@ -211,6 +225,16 @@ public class ChatMessageEntityDao extends AbstractDao<ChatMessageEntity, Long> {
         if (friend_nickname != null) {
             stmt.bindString(13, friend_nickname);
         }
+ 
+        Boolean isSave = entity.getIsSave();
+        if (isSave != null) {
+            stmt.bindLong(14, isSave ? 1L: 0L);
+        }
+ 
+        String uid = entity.getUid();
+        if (uid != null) {
+            stmt.bindString(15, uid);
+        }
     }
 
     @Override
@@ -233,7 +257,9 @@ public class ChatMessageEntityDao extends AbstractDao<ChatMessageEntity, Long> {
             cursor.isNull(offset + 9) ? null : cursor.getString(offset + 9), // nickname
             cursor.isNull(offset + 10) ? null : cursor.getString(offset + 10), // friend_avatar_url
             cursor.isNull(offset + 11) ? null : cursor.getString(offset + 11), // mine_avatar_url
-            cursor.isNull(offset + 12) ? null : cursor.getString(offset + 12) // friend_nickname
+            cursor.isNull(offset + 12) ? null : cursor.getString(offset + 12), // friend_nickname
+            cursor.isNull(offset + 13) ? null : cursor.getShort(offset + 13) != 0, // isSave
+            cursor.isNull(offset + 14) ? null : cursor.getString(offset + 14) // uid
         );
         return entity;
     }
@@ -253,6 +279,8 @@ public class ChatMessageEntityDao extends AbstractDao<ChatMessageEntity, Long> {
         entity.setFriend_avatar_url(cursor.isNull(offset + 10) ? null : cursor.getString(offset + 10));
         entity.setMine_avatar_url(cursor.isNull(offset + 11) ? null : cursor.getString(offset + 11));
         entity.setFriend_nickname(cursor.isNull(offset + 12) ? null : cursor.getString(offset + 12));
+        entity.setIsSave(cursor.isNull(offset + 13) ? null : cursor.getShort(offset + 13) != 0);
+        entity.setUid(cursor.isNull(offset + 14) ? null : cursor.getString(offset + 14));
      }
     
     @Override

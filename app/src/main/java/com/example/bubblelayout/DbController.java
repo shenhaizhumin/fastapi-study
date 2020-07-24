@@ -4,14 +4,25 @@ import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 
 import com.example.bubblelayout.db.ChatMessageEntityDao;
+import com.example.bubblelayout.db.ConversationEntityDao;
 import com.example.bubblelayout.db.DaoMaster;
 import com.example.bubblelayout.db.DaoSession;
+import com.example.bubblelayout.db.MessageEntityDao;
 import com.example.bubblelayout.db.StudentEntityDao;
 import com.example.bubblelayout.db.TeacherEntityDao;
+import com.example.bubblelayout.db.UserEntityDao;
 import com.example.bubblelayout.entity.ChatMessageEntity;
+import com.example.bubblelayout.entity.ConversationEntity;
+import com.example.bubblelayout.entity.MessageEntity;
+import com.example.bubblelayout.entity.UserEntity;
+
+import org.greenrobot.greendao.query.Query;
+import org.greenrobot.greendao.query.QueryBuilder;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import kotlin.jvm.internal.markers.KMutableList;
 
 public class DbController {
     /**
@@ -40,6 +51,9 @@ public class DbController {
     private TeacherEntityDao teacherEntityDao;
     private StudentEntityDao studentEntityDao;
     private ChatMessageEntityDao chatMessageEntityDao;
+    private ConversationEntityDao conversationEntityDao;
+    private MessageEntityDao messageEntityDao;
+    private UserEntityDao userEntityDao;
 
     private static DbController mDbController;
 
@@ -66,6 +80,71 @@ public class DbController {
         teacherEntityDao = mDaoSession.getTeacherEntityDao();
         studentEntityDao = mDaoSession.getStudentEntityDao();
         chatMessageEntityDao = mDaoSession.getChatMessageEntityDao();
+        conversationEntityDao = mDaoSession.getConversationEntityDao();
+        messageEntityDao = mDaoSession.getMessageEntityDao();
+        userEntityDao = mDaoSession.getUserEntityDao();
+    }
+
+    /**
+     * 根据id获取用户信息
+     */
+    public UserEntity getUserById(Integer userId) {
+        return userEntityDao.queryBuilder().where(UserEntityDao.Properties.Id.eq(userId)).build().unique();
+    }
+
+    public void saveUsers(List<UserEntity> users) {
+        userEntityDao.insertOrReplaceInTx(users);
+    }
+
+
+    /**
+     * 获取最新的会话列表
+     *
+     * @return
+     */
+    public List<ConversationEntity> getLatestConversationList(Integer userId) {
+        return conversationEntityDao.queryBuilder().where(ConversationEntityDao.Properties.UserId.eq(userId))
+                .orderAsc(ConversationEntityDao.Properties.ReceivedTime).build().list();
+    }
+
+    public ConversationEntity getConversationEntity(Integer userId, Integer friendId) {
+        return conversationEntityDao.queryBuilder().where(ConversationEntityDao.Properties.UserId.eq(userId), ConversationEntityDao.Properties.FriendId.eq(friendId))
+                .build().unique();
+    }
+
+    /**
+     * 根据当前用户id和朋友id 获取本地消息记录
+     * objectName :消息唯一标识
+     *
+     * @return
+     */
+    public List<MessageEntity> getMessageList(String objectName) {
+        QueryBuilder<MessageEntity> query = messageEntityDao.queryBuilder();
+        return query.where(MessageEntityDao.Properties.ObjectName.eq(objectName))
+                .orderAsc(MessageEntityDao.Properties.SentTime).build().list();
+//        return query
+//                .where(MessageEntityDao.Properties.UserId.eq(userId),
+//                        query.or(MessageEntityDao.Properties.SenderUserId.eq(friendId), MessageEntityDao.Properties.TargetId.eq(friendId)))
+//                .orderAsc(MessageEntityDao.Properties.SentTime).build().list();
+    }
+
+    /**
+     * 更新会话信息
+     */
+    public void updateConversation(ConversationEntity conversationEntity) {
+        conversationEntityDao.update(conversationEntity);
+    }
+
+    /**
+     * 新增会话信息
+     */
+    public void insertConversation(ConversationEntity conversationEntity) {
+        if (conversationEntityDao.queryBuilder().where(ConversationEntityDao.Properties.ObjectName.eq(conversationEntity.getObjectName())).build().list().size() == 0)
+            conversationEntityDao.insertOrReplace(conversationEntity);
+    }
+
+    public void insertMessage(MessageEntity messageEntity) {
+        messageEntityDao.insertOrReplace(messageEntity);
     }
 
     /**
@@ -115,7 +194,8 @@ public class DbController {
     }
 
     public long insertChatMsg(ChatMessageEntity chatMessageEntity) {
-        return chatMessageEntityDao.insert(chatMessageEntity);
+//        return chatMessageEntityDao.insert(chatMessageEntity);
+        return chatMessageEntityDao.insertOrReplace(chatMessageEntity);
     }
 
     /**
