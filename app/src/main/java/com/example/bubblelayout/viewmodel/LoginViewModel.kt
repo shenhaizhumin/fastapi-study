@@ -53,7 +53,7 @@ class LoginViewModel : BaseViewModel() {
                 .subscribe({
                     if (it.code == 200) {
                         userLiveData.value = it.data
-                        UserInfoUtil.setUserId(it.data.userId)
+                        UserInfoUtil.setUserId(it.data.id.toInt())
                         UserInfoUtil.setAccessToken("Bearer ${it.data.access_token}")
                         UserInfoUtil.setUserAvatar(it.data.avatar_url)
                         UserInfoUtil.setUserNickname(it.data.nickname)
@@ -77,7 +77,7 @@ class LoginViewModel : BaseViewModel() {
                 .subscribe({
                     if (it.code == 200) {
                         userLiveData.value = it.data
-                        UserInfoUtil.setUserId(it.data.userId)
+                        UserInfoUtil.setUserId(it.data.id.toInt())
                         UserInfoUtil.setAccessToken("Bearer ${it.data.access_token}")
                         UserInfoUtil.setUserAvatar(it.data.avatar_url)
                         UserInfoUtil.setUserNickname(it.data.nickname)

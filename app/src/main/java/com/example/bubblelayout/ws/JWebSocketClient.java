@@ -10,8 +10,7 @@ import org.java_websocket.drafts.Draft_6455;
 import org.java_websocket.handshake.ServerHandshake;
 
 import java.net.URI;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
+
 
 public class JWebSocketClient extends WebSocketClient {
 
@@ -29,7 +28,7 @@ public class JWebSocketClient extends WebSocketClient {
 
     @Override
     public void onMessage(String message) {
-        Log.e("JWebSocketClient", "onMessage:" + message);
+//        Log.e("JWebSocketClient", "onMessage:" + message);
     }
 
     @Override

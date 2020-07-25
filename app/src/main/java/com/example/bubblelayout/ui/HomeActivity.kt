@@ -7,6 +7,7 @@ import com.example.bubblelayout.R
 import com.example.bubblelayout.api.Urls
 import com.example.bubblelayout.base.BaseActivity
 import com.example.bubblelayout.entity.ChatMessageEntity
+import com.example.bubblelayout.entity.Conversation
 import com.example.bubblelayout.entity.MessageEntity
 import com.example.bubblelayout.ui.fragment.*
 import com.example.bubblelayout.ws.WsManager
@@ -18,6 +19,7 @@ import org.greenrobot.eventbus.EventBus
 class HomeActivity : BaseActivity() {
     private var currentFragment: Fragment? = null
     private lateinit var homeFragment: HomeFragment
+
     //    private var messageFragment: MessageFragment? = null
     private var instagramFragment: InstagramFragment? = null
     private var accountFragment: AccountFragment? = null
@@ -45,7 +47,9 @@ class HomeActivity : BaseActivity() {
             Log.e(TAG, it)
             //收到消息
             try {
-                EventBus.getDefault().post(Gson().fromJson(it, MessageEntity::class.java))
+                val messageEntity = Gson().fromJson(it, MessageEntity::class.java)
+                messageEntity.messageDirection = Conversation.MessageDirection.RECEIVE.value
+                EventBus.getDefault().post(messageEntity)
             } catch (e: Exception) {
                 e.printStackTrace()
             }

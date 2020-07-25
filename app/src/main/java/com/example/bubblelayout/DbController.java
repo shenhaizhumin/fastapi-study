@@ -2,6 +2,7 @@ package com.example.bubblelayout;
 
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
+import android.util.Log;
 
 import com.example.bubblelayout.db.ChatMessageEntityDao;
 import com.example.bubblelayout.db.ConversationEntityDao;
@@ -15,14 +16,12 @@ import com.example.bubblelayout.entity.ChatMessageEntity;
 import com.example.bubblelayout.entity.ConversationEntity;
 import com.example.bubblelayout.entity.MessageEntity;
 import com.example.bubblelayout.entity.UserEntity;
+import com.google.gson.Gson;
 
-import org.greenrobot.greendao.query.Query;
 import org.greenrobot.greendao.query.QueryBuilder;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import kotlin.jvm.internal.markers.KMutableList;
 
 public class DbController {
     /**
@@ -89,7 +88,7 @@ public class DbController {
      * 根据id获取用户信息
      */
     public UserEntity getUserById(Integer userId) {
-        return userEntityDao.queryBuilder().where(UserEntityDao.Properties.Id.eq(userId)).build().unique();
+        return userEntityDao.queryBuilder().where(UserEntityDao.Properties.Id.eq(userId.longValue())).build().unique();
     }
 
     public void saveUsers(List<UserEntity> users) {
@@ -133,18 +132,41 @@ public class DbController {
      */
     public void updateConversation(ConversationEntity conversationEntity) {
         conversationEntityDao.update(conversationEntity);
+        Log.e("DbController", "updateConversation");
     }
 
     /**
      * 新增会话信息
+     * @return
      */
-    public void insertConversation(ConversationEntity conversationEntity) {
+    public long insertConversation(ConversationEntity conversationEntity) {
+        if (conversationEntity.getObjectName()==null || conversationEntity.getObjectName().isEmpty())
+            return -1;
         if (conversationEntityDao.queryBuilder().where(ConversationEntityDao.Properties.ObjectName.eq(conversationEntity.getObjectName())).build().list().size() == 0)
-            conversationEntityDao.insertOrReplace(conversationEntity);
+        {
+            Log.e("DbController", "insertConversation:" + new Gson().toJson(conversationEntity));
+            return conversationEntityDao.insertOrReplace(conversationEntity);
+        }
+
+        return -1;
+    }
+
+    /**
+     * 根据friendId查询conversationEntity
+     * @param friendId
+     * @return
+     */
+    public ConversationEntity getConversation(Long friendId){
+        return conversationEntityDao.queryBuilder().where(ConversationEntityDao.Properties.FriendId.eq(friendId.intValue())).build().unique();
     }
 
     public void insertMessage(MessageEntity messageEntity) {
-        messageEntityDao.insertOrReplace(messageEntity);
+        if (messageEntityDao.queryBuilder().where(MessageEntityDao.Properties.UId.eq(messageEntity.getUId())).build().list().size() == 0) {
+            messageEntity.setId(null);
+            messageEntityDao.insert(messageEntity);
+            Log.e("DbController", "insertMsg:" + new Gson().toJson(messageEntity));
+        }
+
     }
 
     /**

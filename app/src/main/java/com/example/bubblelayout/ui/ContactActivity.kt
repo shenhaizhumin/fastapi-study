@@ -57,9 +57,12 @@ class ContactActivity : BaseVMActivity<LoginViewModel>() {
 ////            conversationEntity.conversationTitle = message.
 //            val insertChatMsg = mDbController.insertConversation(conversationEntity)
 //            Log.e(TAG, "insertMsg:$insertChatMsg")
+            val objectName=DbController.getInstance().getConversation(adapter.data[position].id)?.objectName
             startActivity(
                 Intent(this, ChatActivity::class.java).putExtra("msgTitle", adapter.data[position].nickname)
                     .putExtra("friend_avatar_url", adapter.data[position].avatar_url)
+                    .putExtra("targetId",adapter.data[position].id)
+                    .putExtra("objectName",objectName)
             )
 
         }

@@ -1,15 +1,12 @@
 package com.example.bubblelayout.ui
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.bubblelayout.DbController
 import com.example.bubblelayout.R
 import com.example.bubblelayout.adapter.ChatAdapter
-import com.example.bubblelayout.api.Urls
 import com.example.bubblelayout.base.BaseVMActivity
-import com.example.bubblelayout.entity.ChatMessageEntity
 import com.example.bubblelayout.entity.Conversation
 import com.example.bubblelayout.entity.MessageEntity
 import com.example.bubblelayout.utils.CornerTransform
@@ -33,7 +30,7 @@ class ChatActivity : BaseVMActivity<ChatViewModel>() {
     private lateinit var msgTitle: String
     private lateinit var avatar_url: String
     private lateinit var friend_avatar_url: String
-    private var targetId: Int = 0
+    private var targetId: Long = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -55,7 +52,7 @@ class ChatActivity : BaseVMActivity<ChatViewModel>() {
 
         msgTitle = intent.getStringExtra("msgTitle")
         friend_avatar_url = intent.getStringExtra("friend_avatar_url")
-        targetId = intent.getIntExtra("targetId", 0)
+        targetId = intent.getLongExtra("targetId", 0)
         mIvBackIcon.setOnClickListener { finish() }
         mTvFriendNickname.text = msgTitle
         avatar_url = UserInfoUtil.getUserAvatar() + ""
@@ -75,17 +72,20 @@ class ChatActivity : BaseVMActivity<ChatViewModel>() {
             if (msg.isNotEmpty()) {
                 val chatMsg = MessageEntity()
                 chatMsg.content = msg
+                chatMsg.userId = userId
                 chatMsg.receivedTime = null
                 chatMsg.senderUserId = userId
                 chatMsg.sentTime = System.currentTimeMillis()
                 chatMsg.conversationType = Conversation.ConversationType.PRIVATE.value
                 chatMsg.messageDirection = Conversation.MessageDirection.SENT.value
                 chatMsg.objectName = msgObjectName
-                chatMsg.targetId = targetId
+                chatMsg.targetId = targetId.toInt()
+                chatMsg.uId = UUID.randomUUID().toString()
 //                chatMsg.objectName = UUID.randomUUID().toString()
-                val insertChatMsg = dbController.insertMessage(chatMsg)
-                Log.e(TAG, "insertMsg:$insertChatMsg")
-                //发消息
+                chatMsg.setSaved(true)
+                chatMsg.messageStatus=Conversation.MessageStatus.MESSAGESENT.value
+                dbController.insertMessage(chatMsg)
+                //发消息 更新会话消息
                 EventBus.getDefault().post(chatMsg)
                 WsManager.getInstance().sendMsg(Gson().toJson(chatMsg))
                 adapter.addData(chatMsg)
@@ -105,10 +105,14 @@ class ChatActivity : BaseVMActivity<ChatViewModel>() {
 //        receiveChat.nickname = mineNickName
 //        receiveChat.friend_avatar_url = friend_avatar_url
 //        receiveChat.mine_avatar_url = avatar_url
-        val insertChatMsg = dbController.insertMessage(receiveChat)
-        Log.e(TAG, "insertMsg:$insertChatMsg")
-        adapter.addData(receiveChat)
-        mRvChat.smoothScrollToPosition(adapter.data.size - 1)
+        if (receiveChat.messageStatus!=Conversation.MessageStatus.MESSAGESENT.value) {
+            //只接受服务端发送的消息
+            adapter.addData(receiveChat)
+            mRvChat.smoothScrollToPosition(adapter.data.size - 1)
+            receiveChat.id=null
+            dbController.insertMessage(receiveChat)
+        }
+
     }
 
     override fun onDestroy() {

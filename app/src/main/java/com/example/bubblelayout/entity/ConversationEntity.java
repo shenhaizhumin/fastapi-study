@@ -3,6 +3,7 @@ package com.example.bubblelayout.entity;
 import org.greenrobot.greendao.annotation.Entity;
 import org.greenrobot.greendao.annotation.Id;
 import org.greenrobot.greendao.annotation.Generated;
+import org.greenrobot.greendao.annotation.Unique;
 
 /**
  * 会话
@@ -207,6 +208,7 @@ public class ConversationEntity {
 
     private Long receivedTime;//消息接收时间
     private Long sentTime; //最后消息发送时间
+    @Unique
     private String objectName;//消息对象名称
     private Integer senderUserId; //发送消息的用户 Id
     private String senderUserName;//发送消息的用户名称

@@ -58,18 +58,23 @@ class ConversationListFragment : BaseVMFragment<ChatViewModel>() {
                     adapter.data[position].objectName
                 ).putExtra("friend_avatar_url", adapter.data[position].portraitUrl)
                     .putExtra("msgTitle", adapter.data[position].conversationTitle)
+                    .putExtra("targetId", adapter.data[position].friendId.toLong())
             )
         }
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     fun onEvent(message: MessageEntity) {
+      mDbController.insertMessage(message)
         //收到消息
         /**
          * 找到与该消息相关的会话
          */
-        val entity = adapter.data.firstOrNull { entity ->
-            entity.objectName == message.objectName
+//        var entity = adapter.data.firstOrNull {
+//            message.targetId == it.senderUserId
+//        }
+        val  entity = adapter.data.firstOrNull {
+            UserInfoUtil.eqObjectName(message.targetId,message.senderUserId,it.targetId,it.senderUserId)
         }
         if (entity != null) {
             /**
@@ -80,8 +85,7 @@ class ConversationListFragment : BaseVMFragment<ChatViewModel>() {
             entity.receivedTime = message.sentTime//接收时间
             entity.senderUserId = message.senderUserId//消息内容
             entity.targetId = message.targetId
-            val insertChatMsg = mDbController.updateConversation(entity)
-            Log.e(TAG, "insertMsg:$insertChatMsg")
+             mDbController.updateConversation(entity)
             adapter.notifyItemChanged(adapter.data.indexOf(entity))
             mRvChat.smoothScrollToPosition(adapter.data.size - 1)
         } else {
@@ -89,21 +93,26 @@ class ConversationListFragment : BaseVMFragment<ChatViewModel>() {
              * 新增会话
              */
             val conversationEntity = ConversationEntity()
+            conversationEntity.userId=userId
+            conversationEntity.senderUserId=message.senderUserId
             conversationEntity.targetId = message.targetId
             conversationEntity.latestMessage = message.content
             conversationEntity.latestMessageId = message.id.toInt()
             conversationEntity.conversationType = Conversation.ConversationType.PRIVATE.value
             //根据发送者id查询用户
-            val target = mDbController.getUserById(message.senderUserId)
+            val target = if (message.targetId == userId) {
+                mDbController.getUserById(message.senderUserId)
+            } else {
+                mDbController.getUserById(message.targetId)
+            }
             conversationEntity.conversationTitle = target.nickname
             conversationEntity.portraitUrl = target.avatar_url
             conversationEntity.receivedTime = message.receivedTime
             conversationEntity.sentTime = message.sentTime
             conversationEntity.objectName = message.objectName
-            conversationEntity.friendId = target.userId
+            conversationEntity.friendId = target.id.toInt()
 //            conversationEntity.conversationTitle = message.
-            val insertChatMsg = mDbController.insertConversation(conversationEntity)
-            Log.e(TAG, "insertMsg:$insertChatMsg")
+             mDbController.insertConversation(conversationEntity)
             adapter.addData(conversationEntity)
         }
 

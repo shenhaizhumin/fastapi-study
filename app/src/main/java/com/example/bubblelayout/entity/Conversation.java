@@ -31,4 +31,12 @@ public class Conversation {
             this.value = value;
         }
     }
+
+    public enum MessageStatus{
+        MESSAGESENT(0),SENTSUCCESS(1);
+        public int value;
+        MessageStatus(int value) {
+            this.value = value;
+        }
+    }
 }

@@ -45,4 +45,20 @@ object UserInfoUtil {
     fun getMomentImage(): String? {
         return SPUtils.getInstance().getString("momentImage")
     }
+
+    fun generateObjectName(senderId:Int,receiveId:Int): String {
+        return "$senderId$receiveId"
+    }
+
+    /**
+     * 1,2,3,4
+     * 1,2 || 3,4
+     * 2,1||3,4
+     * 1,2||4,3
+     * 2,1||4,3
+     */
+
+    fun eqObjectName(senderId:Int,receiveId:Int,localSid:Int,localRid:Int): Boolean {
+        return "$senderId$receiveId"=="$localSid$localRid" ||"$receiveId$senderId"=="$localSid$localRid" || "$senderId$receiveId"=="$localRid$localSid"|| "$receiveId$senderId"=="$localRid$localSid"
+    }
 }

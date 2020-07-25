@@ -25,18 +25,17 @@ public class UserEntityDao extends AbstractDao<UserEntity, Long> {
      */
     public static class Properties {
         public final static Property Id = new Property(0, Long.class, "id", true, "_id");
-        public final static Property UserId = new Property(1, Integer.class, "userId", false, "USER_ID");
-        public final static Property Uid = new Property(2, String.class, "uid", false, "UID");
-        public final static Property Username = new Property(3, String.class, "username", false, "USERNAME");
-        public final static Property Email = new Property(4, String.class, "email", false, "EMAIL");
-        public final static Property Mobile = new Property(5, String.class, "mobile", false, "MOBILE");
-        public final static Property Nickname = new Property(6, String.class, "nickname", false, "NICKNAME");
-        public final static Property Avatar_url = new Property(7, String.class, "avatar_url", false, "AVATAR_URL");
-        public final static Property Moment_image = new Property(8, String.class, "moment_image", false, "MOMENT_IMAGE");
-        public final static Property Latest_ip = new Property(9, String.class, "latest_ip", false, "LATEST_IP");
-        public final static Property Latest_time = new Property(10, String.class, "latest_time", false, "LATEST_TIME");
-        public final static Property Access_token = new Property(11, String.class, "access_token", false, "ACCESS_TOKEN");
-        public final static Property Type_role = new Property(12, String.class, "type_role", false, "TYPE_ROLE");
+        public final static Property Uid = new Property(1, String.class, "uid", false, "UID");
+        public final static Property Username = new Property(2, String.class, "username", false, "USERNAME");
+        public final static Property Email = new Property(3, String.class, "email", false, "EMAIL");
+        public final static Property Mobile = new Property(4, String.class, "mobile", false, "MOBILE");
+        public final static Property Nickname = new Property(5, String.class, "nickname", false, "NICKNAME");
+        public final static Property Avatar_url = new Property(6, String.class, "avatar_url", false, "AVATAR_URL");
+        public final static Property Moment_image = new Property(7, String.class, "moment_image", false, "MOMENT_IMAGE");
+        public final static Property Latest_ip = new Property(8, String.class, "latest_ip", false, "LATEST_IP");
+        public final static Property Latest_time = new Property(9, String.class, "latest_time", false, "LATEST_TIME");
+        public final static Property Access_token = new Property(10, String.class, "access_token", false, "ACCESS_TOKEN");
+        public final static Property Type_role = new Property(11, String.class, "type_role", false, "TYPE_ROLE");
     }
 
 
@@ -53,18 +52,17 @@ public class UserEntityDao extends AbstractDao<UserEntity, Long> {
         String constraint = ifNotExists? "IF NOT EXISTS ": "";
         db.execSQL("CREATE TABLE " + constraint + "\"USER_ENTITY\" (" + //
                 "\"_id\" INTEGER PRIMARY KEY ," + // 0: id
-                "\"USER_ID\" INTEGER," + // 1: userId
-                "\"UID\" TEXT," + // 2: uid
-                "\"USERNAME\" TEXT," + // 3: username
-                "\"EMAIL\" TEXT," + // 4: email
-                "\"MOBILE\" TEXT," + // 5: mobile
-                "\"NICKNAME\" TEXT," + // 6: nickname
-                "\"AVATAR_URL\" TEXT," + // 7: avatar_url
-                "\"MOMENT_IMAGE\" TEXT," + // 8: moment_image
-                "\"LATEST_IP\" TEXT," + // 9: latest_ip
-                "\"LATEST_TIME\" TEXT," + // 10: latest_time
-                "\"ACCESS_TOKEN\" TEXT," + // 11: access_token
-                "\"TYPE_ROLE\" TEXT);"); // 12: type_role
+                "\"UID\" TEXT," + // 1: uid
+                "\"USERNAME\" TEXT," + // 2: username
+                "\"EMAIL\" TEXT," + // 3: email
+                "\"MOBILE\" TEXT," + // 4: mobile
+                "\"NICKNAME\" TEXT," + // 5: nickname
+                "\"AVATAR_URL\" TEXT," + // 6: avatar_url
+                "\"MOMENT_IMAGE\" TEXT," + // 7: moment_image
+                "\"LATEST_IP\" TEXT," + // 8: latest_ip
+                "\"LATEST_TIME\" TEXT," + // 9: latest_time
+                "\"ACCESS_TOKEN\" TEXT," + // 10: access_token
+                "\"TYPE_ROLE\" TEXT);"); // 11: type_role
     }
 
     /** Drops the underlying database table. */
@@ -82,64 +80,59 @@ public class UserEntityDao extends AbstractDao<UserEntity, Long> {
             stmt.bindLong(1, id);
         }
  
-        Integer userId = entity.getUserId();
-        if (userId != null) {
-            stmt.bindLong(2, userId);
-        }
- 
         String uid = entity.getUid();
         if (uid != null) {
-            stmt.bindString(3, uid);
+            stmt.bindString(2, uid);
         }
  
         String username = entity.getUsername();
         if (username != null) {
-            stmt.bindString(4, username);
+            stmt.bindString(3, username);
         }
  
         String email = entity.getEmail();
         if (email != null) {
-            stmt.bindString(5, email);
+            stmt.bindString(4, email);
         }
  
         String mobile = entity.getMobile();
         if (mobile != null) {
-            stmt.bindString(6, mobile);
+            stmt.bindString(5, mobile);
         }
  
         String nickname = entity.getNickname();
         if (nickname != null) {
-            stmt.bindString(7, nickname);
+            stmt.bindString(6, nickname);
         }
  
         String avatar_url = entity.getAvatar_url();
         if (avatar_url != null) {
-            stmt.bindString(8, avatar_url);
+            stmt.bindString(7, avatar_url);
         }
  
         String moment_image = entity.getMoment_image();
         if (moment_image != null) {
-            stmt.bindString(9, moment_image);
+            stmt.bindString(8, moment_image);
         }
  
         String latest_ip = entity.getLatest_ip();
         if (latest_ip != null) {
-            stmt.bindString(10, latest_ip);
+            stmt.bindString(9, latest_ip);
         }
  
         String latest_time = entity.getLatest_time();
         if (latest_time != null) {
-            stmt.bindString(11, latest_time);
+            stmt.bindString(10, latest_time);
         }
  
         String access_token = entity.getAccess_token();
         if (access_token != null) {
-            stmt.bindString(12, access_token);
+            stmt.bindString(11, access_token);
         }
  
         String type_role = entity.getType_role();
         if (type_role != null) {
-            stmt.bindString(13, type_role);
+            stmt.bindString(12, type_role);
         }
     }
 
@@ -152,64 +145,59 @@ public class UserEntityDao extends AbstractDao<UserEntity, Long> {
             stmt.bindLong(1, id);
         }
  
-        Integer userId = entity.getUserId();
-        if (userId != null) {
-            stmt.bindLong(2, userId);
-        }
- 
         String uid = entity.getUid();
         if (uid != null) {
-            stmt.bindString(3, uid);
+            stmt.bindString(2, uid);
         }
  
         String username = entity.getUsername();
         if (username != null) {
-            stmt.bindString(4, username);
+            stmt.bindString(3, username);
         }
  
         String email = entity.getEmail();
         if (email != null) {
-            stmt.bindString(5, email);
+            stmt.bindString(4, email);
         }
  
         String mobile = entity.getMobile();
         if (mobile != null) {
-            stmt.bindString(6, mobile);
+            stmt.bindString(5, mobile);
         }
  
         String nickname = entity.getNickname();
         if (nickname != null) {
-            stmt.bindString(7, nickname);
+            stmt.bindString(6, nickname);
         }
  
         String avatar_url = entity.getAvatar_url();
         if (avatar_url != null) {
-            stmt.bindString(8, avatar_url);
+            stmt.bindString(7, avatar_url);
         }
  
         String moment_image = entity.getMoment_image();
         if (moment_image != null) {
-            stmt.bindString(9, moment_image);
+            stmt.bindString(8, moment_image);
         }
  
         String latest_ip = entity.getLatest_ip();
         if (latest_ip != null) {
-            stmt.bindString(10, latest_ip);
+            stmt.bindString(9, latest_ip);
         }
  
         String latest_time = entity.getLatest_time();
         if (latest_time != null) {
-            stmt.bindString(11, latest_time);
+            stmt.bindString(10, latest_time);
         }
  
         String access_token = entity.getAccess_token();
         if (access_token != null) {
-            stmt.bindString(12, access_token);
+            stmt.bindString(11, access_token);
         }
  
         String type_role = entity.getType_role();
         if (type_role != null) {
-            stmt.bindString(13, type_role);
+            stmt.bindString(12, type_role);
         }
     }
 
@@ -222,18 +210,17 @@ public class UserEntityDao extends AbstractDao<UserEntity, Long> {
     public UserEntity readEntity(Cursor cursor, int offset) {
         UserEntity entity = new UserEntity( //
             cursor.isNull(offset + 0) ? null : cursor.getLong(offset + 0), // id
-            cursor.isNull(offset + 1) ? null : cursor.getInt(offset + 1), // userId
-            cursor.isNull(offset + 2) ? null : cursor.getString(offset + 2), // uid
-            cursor.isNull(offset + 3) ? null : cursor.getString(offset + 3), // username
-            cursor.isNull(offset + 4) ? null : cursor.getString(offset + 4), // email
-            cursor.isNull(offset + 5) ? null : cursor.getString(offset + 5), // mobile
-            cursor.isNull(offset + 6) ? null : cursor.getString(offset + 6), // nickname
-            cursor.isNull(offset + 7) ? null : cursor.getString(offset + 7), // avatar_url
-            cursor.isNull(offset + 8) ? null : cursor.getString(offset + 8), // moment_image
-            cursor.isNull(offset + 9) ? null : cursor.getString(offset + 9), // latest_ip
-            cursor.isNull(offset + 10) ? null : cursor.getString(offset + 10), // latest_time
-            cursor.isNull(offset + 11) ? null : cursor.getString(offset + 11), // access_token
-            cursor.isNull(offset + 12) ? null : cursor.getString(offset + 12) // type_role
+            cursor.isNull(offset + 1) ? null : cursor.getString(offset + 1), // uid
+            cursor.isNull(offset + 2) ? null : cursor.getString(offset + 2), // username
+            cursor.isNull(offset + 3) ? null : cursor.getString(offset + 3), // email
+            cursor.isNull(offset + 4) ? null : cursor.getString(offset + 4), // mobile
+            cursor.isNull(offset + 5) ? null : cursor.getString(offset + 5), // nickname
+            cursor.isNull(offset + 6) ? null : cursor.getString(offset + 6), // avatar_url
+            cursor.isNull(offset + 7) ? null : cursor.getString(offset + 7), // moment_image
+            cursor.isNull(offset + 8) ? null : cursor.getString(offset + 8), // latest_ip
+            cursor.isNull(offset + 9) ? null : cursor.getString(offset + 9), // latest_time
+            cursor.isNull(offset + 10) ? null : cursor.getString(offset + 10), // access_token
+            cursor.isNull(offset + 11) ? null : cursor.getString(offset + 11) // type_role
         );
         return entity;
     }
@@ -241,18 +228,17 @@ public class UserEntityDao extends AbstractDao<UserEntity, Long> {
     @Override
     public void readEntity(Cursor cursor, UserEntity entity, int offset) {
         entity.setId(cursor.isNull(offset + 0) ? null : cursor.getLong(offset + 0));
-        entity.setUserId(cursor.isNull(offset + 1) ? null : cursor.getInt(offset + 1));
-        entity.setUid(cursor.isNull(offset + 2) ? null : cursor.getString(offset + 2));
-        entity.setUsername(cursor.isNull(offset + 3) ? null : cursor.getString(offset + 3));
-        entity.setEmail(cursor.isNull(offset + 4) ? null : cursor.getString(offset + 4));
-        entity.setMobile(cursor.isNull(offset + 5) ? null : cursor.getString(offset + 5));
-        entity.setNickname(cursor.isNull(offset + 6) ? null : cursor.getString(offset + 6));
-        entity.setAvatar_url(cursor.isNull(offset + 7) ? null : cursor.getString(offset + 7));
-        entity.setMoment_image(cursor.isNull(offset + 8) ? null : cursor.getString(offset + 8));
-        entity.setLatest_ip(cursor.isNull(offset + 9) ? null : cursor.getString(offset + 9));
-        entity.setLatest_time(cursor.isNull(offset + 10) ? null : cursor.getString(offset + 10));
-        entity.setAccess_token(cursor.isNull(offset + 11) ? null : cursor.getString(offset + 11));
-        entity.setType_role(cursor.isNull(offset + 12) ? null : cursor.getString(offset + 12));
+        entity.setUid(cursor.isNull(offset + 1) ? null : cursor.getString(offset + 1));
+        entity.setUsername(cursor.isNull(offset + 2) ? null : cursor.getString(offset + 2));
+        entity.setEmail(cursor.isNull(offset + 3) ? null : cursor.getString(offset + 3));
+        entity.setMobile(cursor.isNull(offset + 4) ? null : cursor.getString(offset + 4));
+        entity.setNickname(cursor.isNull(offset + 5) ? null : cursor.getString(offset + 5));
+        entity.setAvatar_url(cursor.isNull(offset + 6) ? null : cursor.getString(offset + 6));
+        entity.setMoment_image(cursor.isNull(offset + 7) ? null : cursor.getString(offset + 7));
+        entity.setLatest_ip(cursor.isNull(offset + 8) ? null : cursor.getString(offset + 8));
+        entity.setLatest_time(cursor.isNull(offset + 9) ? null : cursor.getString(offset + 9));
+        entity.setAccess_token(cursor.isNull(offset + 10) ? null : cursor.getString(offset + 10));
+        entity.setType_role(cursor.isNull(offset + 11) ? null : cursor.getString(offset + 11));
      }
     
     @Override

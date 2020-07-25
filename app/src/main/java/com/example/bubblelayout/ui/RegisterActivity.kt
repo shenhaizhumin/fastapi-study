@@ -27,7 +27,7 @@ class RegisterActivity : BaseVMActivity<LoginViewModel>() {
         })
         mViewModel.userLiveData.observe(this, Observer {
             //登录成功！
-            UserInfoUtil.setUserId(it.userId)
+            UserInfoUtil.setUserId(it.id.toInt())
             UserInfoUtil.setAccessToken("Bearer ${it.access_token}")
             startActivity(Intent(this, HomeActivity::class.java))
         })

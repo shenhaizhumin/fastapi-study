@@ -40,10 +40,9 @@ public class UserEntity implements Serializable {
      *     }
      */
     @Id
-    @SerializedName("xxx")
     private Long id;
-    @SerializedName("id")
-    private Integer userId;
+//    @SerializedName("id")
+//    private Integer userId;
 
     public Long getId() {
         return id;
@@ -53,13 +52,6 @@ public class UserEntity implements Serializable {
         this.id = id;
     }
 
-    public Integer getUserId() {
-        return userId;
-    }
-
-    public void setUserId(Integer userId) {
-        this.userId = userId;
-    }
 
     public String getUid() {
         return uid;
@@ -162,10 +154,9 @@ public class UserEntity implements Serializable {
     private String type_role;
     private static final long serialVersionUID = 1L;
 
-    @Generated(hash = 1503988259)
-    public UserEntity(Long id, Integer userId, String uid, String username, String email, String mobile, String nickname, String avatar_url, String moment_image, String latest_ip, String latest_time, String access_token, String type_role) {
+    @Generated(hash = 191387478)
+    public UserEntity(Long id, String uid, String username, String email, String mobile, String nickname, String avatar_url, String moment_image, String latest_ip, String latest_time, String access_token, String type_role) {
         this.id = id;
-        this.userId = userId;
         this.uid = uid;
         this.username = username;
         this.email = email;

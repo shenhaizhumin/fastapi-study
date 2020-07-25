@@ -3,6 +3,7 @@ package com.example.bubblelayout.entity;
 import org.greenrobot.greendao.annotation.Entity;
 import org.greenrobot.greendao.annotation.Id;
 import org.greenrobot.greendao.annotation.Generated;
+import org.greenrobot.greendao.annotation.Unique;
 
 /**
  * conversationType	Conversation.ConversationType	会话类型
@@ -33,6 +34,7 @@ public class MessageEntity {
     private String conversationType;
     private Integer targetId;
     private Integer messageId;
+    @Unique
     private String UId;
     private Integer messageDirection;
     private Integer senderUserId;
@@ -43,130 +45,192 @@ public class MessageEntity {
     private Long readTime;
     private String objectName;
     private String content;
-    private String extra;
-    @Generated(hash = 66526649)
-    public MessageEntity(Long id, Integer userId, String conversationType,
-            Integer targetId, Integer messageId, String UId,
-            Integer messageDirection, Integer senderUserId, Integer receivedStatus,
-            Integer sentStatus, Long receivedTime, Long sentTime, Long readTime,
-            String objectName, String content, String extra) {
-        this.id = id;
-        this.userId = userId;
-        this.conversationType = conversationType;
-        this.targetId = targetId;
-        this.messageId = messageId;
-        this.UId = UId;
-        this.messageDirection = messageDirection;
-        this.senderUserId = senderUserId;
-        this.receivedStatus = receivedStatus;
-        this.sentStatus = sentStatus;
-        this.receivedTime = receivedTime;
-        this.sentTime = sentTime;
-        this.readTime = readTime;
-        this.objectName = objectName;
-        this.content = content;
-        this.extra = extra;
-    }
-    @Generated(hash = 1797882234)
-    public MessageEntity() {
-    }
+
     public Long getId() {
-        return this.id;
+        return id;
     }
+
     public void setId(Long id) {
         this.id = id;
     }
+
     public Integer getUserId() {
-        return this.userId;
+        return userId;
     }
+
     public void setUserId(Integer userId) {
         this.userId = userId;
     }
+
     public String getConversationType() {
-        return this.conversationType;
+        return conversationType;
     }
+
     public void setConversationType(String conversationType) {
         this.conversationType = conversationType;
     }
+
     public Integer getTargetId() {
-        return this.targetId;
+        return targetId;
     }
+
     public void setTargetId(Integer targetId) {
         this.targetId = targetId;
     }
+
     public Integer getMessageId() {
-        return this.messageId;
+        return messageId;
     }
+
     public void setMessageId(Integer messageId) {
         this.messageId = messageId;
     }
+
     public String getUId() {
-        return this.UId;
+        return UId;
     }
+
     public void setUId(String UId) {
         this.UId = UId;
     }
+
     public Integer getMessageDirection() {
-        return this.messageDirection;
+        return messageDirection;
     }
+
     public void setMessageDirection(Integer messageDirection) {
         this.messageDirection = messageDirection;
     }
+
     public Integer getSenderUserId() {
-        return this.senderUserId;
+        return senderUserId;
     }
+
     public void setSenderUserId(Integer senderUserId) {
         this.senderUserId = senderUserId;
     }
+
     public Integer getReceivedStatus() {
-        return this.receivedStatus;
+        return receivedStatus;
     }
+
     public void setReceivedStatus(Integer receivedStatus) {
         this.receivedStatus = receivedStatus;
     }
+
     public Integer getSentStatus() {
-        return this.sentStatus;
+        return sentStatus;
     }
+
     public void setSentStatus(Integer sentStatus) {
         this.sentStatus = sentStatus;
     }
+
     public Long getReceivedTime() {
-        return this.receivedTime;
+        return receivedTime;
     }
+
     public void setReceivedTime(Long receivedTime) {
         this.receivedTime = receivedTime;
     }
+
     public Long getSentTime() {
-        return this.sentTime;
+        return sentTime;
     }
+
     public void setSentTime(Long sentTime) {
         this.sentTime = sentTime;
     }
+
     public Long getReadTime() {
-        return this.readTime;
+        return readTime;
     }
+
     public void setReadTime(Long readTime) {
         this.readTime = readTime;
     }
+
     public String getObjectName() {
-        return this.objectName;
+        return objectName;
     }
+
     public void setObjectName(String objectName) {
         this.objectName = objectName;
     }
+
     public String getContent() {
-        return this.content;
+        return content;
     }
+
     public void setContent(String content) {
         this.content = content;
     }
+
     public String getExtra() {
-        return this.extra;
+        return extra;
     }
+
     public void setExtra(String extra) {
         this.extra = extra;
     }
 
+    public boolean isSaved() {
+        return isSaved;
+    }
 
+    public void setSaved(boolean saved) {
+        isSaved = saved;
+    }
+
+    public Integer getMessageStatus() {
+        return messageStatus;
+    }
+
+    public void setMessageStatus(Integer messageStatus) {
+        this.messageStatus = messageStatus;
+    }
+
+    public boolean getIsSaved() {
+        return this.isSaved;
+    }
+
+    public void setIsSaved(boolean isSaved) {
+        this.isSaved = isSaved;
+    }
+
+    private String extra;
+    private boolean isSaved;
+    private Integer messageStatus;
+
+    @Generated(hash = 128093744)
+    public MessageEntity(Long id, Integer userId, String conversationType,
+            Integer targetId, Integer messageId, String UId,
+            Integer messageDirection, Integer senderUserId, Integer receivedStatus,
+            Integer sentStatus, Long receivedTime, Long sentTime, Long readTime,
+            String objectName, String content, String extra, boolean isSaved,
+            Integer messageStatus) {
+        this.id = id;
+        this.userId = userId;
+        this.conversationType = conversationType;
+        this.targetId = targetId;
+        this.messageId = messageId;
+        this.UId = UId;
+        this.messageDirection = messageDirection;
+        this.senderUserId = senderUserId;
+        this.receivedStatus = receivedStatus;
+        this.sentStatus = sentStatus;
+        this.receivedTime = receivedTime;
+        this.sentTime = sentTime;
+        this.readTime = readTime;
+        this.objectName = objectName;
+        this.content = content;
+        this.extra = extra;
+        this.isSaved = isSaved;
+        this.messageStatus = messageStatus;
+    }
+
+    @Generated(hash = 1797882234)
+    public MessageEntity() {
+    }
 
 }

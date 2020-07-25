@@ -1,5 +1,6 @@
 package com.example.bubblelayout.adapter
 
+import android.util.Log
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.chad.library.adapter.base.BaseQuickAdapter
@@ -21,8 +22,9 @@ class ConversationListAdapter(layoutId: Int, dataList: MutableList<ConversationE
                 )
             )
             .into(holder.getView(R.id.iv_item_friend_icon))
-        holder.setText(R.id.tv_item_friend_nickname, item.objectName)
+        val time:Long?=item.receivedTime?:item.sentTime
+        holder.setText(R.id.tv_item_friend_nickname, item.conversationTitle)
             .setText(R.id.tv_item_latest_msg, item.latestMessage)
-            .setText(R.id.tv_item_post_time, SimpleDateFormat("HH:mm").format(Date(item.receivedTime)))
+            .setText(R.id.tv_item_post_time, SimpleDateFormat("HH:mm").format(Date(time?:0)))
     }
 }

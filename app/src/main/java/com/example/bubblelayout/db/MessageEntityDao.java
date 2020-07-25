@@ -40,6 +40,8 @@ public class MessageEntityDao extends AbstractDao<MessageEntity, Long> {
         public final static Property ObjectName = new Property(13, String.class, "objectName", false, "OBJECT_NAME");
         public final static Property Content = new Property(14, String.class, "content", false, "CONTENT");
         public final static Property Extra = new Property(15, String.class, "extra", false, "EXTRA");
+        public final static Property IsSaved = new Property(16, boolean.class, "isSaved", false, "IS_SAVED");
+        public final static Property MessageStatus = new Property(17, Integer.class, "messageStatus", false, "MESSAGE_STATUS");
     }
 
 
@@ -60,7 +62,7 @@ public class MessageEntityDao extends AbstractDao<MessageEntity, Long> {
                 "\"CONVERSATION_TYPE\" TEXT," + // 2: conversationType
                 "\"TARGET_ID\" INTEGER," + // 3: targetId
                 "\"MESSAGE_ID\" INTEGER," + // 4: messageId
-                "\"UID\" TEXT," + // 5: UId
+                "\"UID\" TEXT UNIQUE ," + // 5: UId
                 "\"MESSAGE_DIRECTION\" INTEGER," + // 6: messageDirection
                 "\"SENDER_USER_ID\" INTEGER," + // 7: senderUserId
                 "\"RECEIVED_STATUS\" INTEGER," + // 8: receivedStatus
@@ -70,7 +72,9 @@ public class MessageEntityDao extends AbstractDao<MessageEntity, Long> {
                 "\"READ_TIME\" INTEGER," + // 12: readTime
                 "\"OBJECT_NAME\" TEXT," + // 13: objectName
                 "\"CONTENT\" TEXT," + // 14: content
-                "\"EXTRA\" TEXT);"); // 15: extra
+                "\"EXTRA\" TEXT," + // 15: extra
+                "\"IS_SAVED\" INTEGER NOT NULL ," + // 16: isSaved
+                "\"MESSAGE_STATUS\" INTEGER);"); // 17: messageStatus
     }
 
     /** Drops the underlying database table. */
@@ -162,6 +166,12 @@ public class MessageEntityDao extends AbstractDao<MessageEntity, Long> {
         if (extra != null) {
             stmt.bindString(16, extra);
         }
+        stmt.bindLong(17, entity.getIsSaved() ? 1L: 0L);
+ 
+        Integer messageStatus = entity.getMessageStatus();
+        if (messageStatus != null) {
+            stmt.bindLong(18, messageStatus);
+        }
     }
 
     @Override
@@ -247,6 +257,12 @@ public class MessageEntityDao extends AbstractDao<MessageEntity, Long> {
         if (extra != null) {
             stmt.bindString(16, extra);
         }
+        stmt.bindLong(17, entity.getIsSaved() ? 1L: 0L);
+ 
+        Integer messageStatus = entity.getMessageStatus();
+        if (messageStatus != null) {
+            stmt.bindLong(18, messageStatus);
+        }
     }
 
     @Override
@@ -272,7 +288,9 @@ public class MessageEntityDao extends AbstractDao<MessageEntity, Long> {
             cursor.isNull(offset + 12) ? null : cursor.getLong(offset + 12), // readTime
             cursor.isNull(offset + 13) ? null : cursor.getString(offset + 13), // objectName
             cursor.isNull(offset + 14) ? null : cursor.getString(offset + 14), // content
-            cursor.isNull(offset + 15) ? null : cursor.getString(offset + 15) // extra
+            cursor.isNull(offset + 15) ? null : cursor.getString(offset + 15), // extra
+            cursor.getShort(offset + 16) != 0, // isSaved
+            cursor.isNull(offset + 17) ? null : cursor.getInt(offset + 17) // messageStatus
         );
         return entity;
     }
@@ -295,6 +313,8 @@ public class MessageEntityDao extends AbstractDao<MessageEntity, Long> {
         entity.setObjectName(cursor.isNull(offset + 13) ? null : cursor.getString(offset + 13));
         entity.setContent(cursor.isNull(offset + 14) ? null : cursor.getString(offset + 14));
         entity.setExtra(cursor.isNull(offset + 15) ? null : cursor.getString(offset + 15));
+        entity.setIsSaved(cursor.getShort(offset + 16) != 0);
+        entity.setMessageStatus(cursor.isNull(offset + 17) ? null : cursor.getInt(offset + 17));
      }
     
     @Override

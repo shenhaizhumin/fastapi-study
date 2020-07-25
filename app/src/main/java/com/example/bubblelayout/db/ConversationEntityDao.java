@@ -71,7 +71,7 @@ public class ConversationEntityDao extends AbstractDao<ConversationEntity, Long>
                 "\"SENT_STATUS\" TEXT," + // 10: sentStatus
                 "\"RECEIVED_TIME\" INTEGER," + // 11: receivedTime
                 "\"SENT_TIME\" INTEGER," + // 12: sentTime
-                "\"OBJECT_NAME\" TEXT," + // 13: objectName
+                "\"OBJECT_NAME\" TEXT UNIQUE ," + // 13: objectName
                 "\"SENDER_USER_ID\" INTEGER," + // 14: senderUserId
                 "\"SENDER_USER_NAME\" TEXT," + // 15: senderUserName
                 "\"LATEST_MESSAGE_ID\" INTEGER," + // 16: latestMessageId
