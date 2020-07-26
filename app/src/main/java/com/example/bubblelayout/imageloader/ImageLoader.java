@@ -4,9 +4,12 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Handler;
+import android.os.Message;
+import android.os.SystemClock;
 import android.util.Log;
 import android.widget.ImageView;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import com.example.bubblelayout.R;
@@ -50,8 +53,22 @@ public class ImageLoader {
     }
 
     public void init(Context context) {
+        Handler h=new Handler(new Handler.Callback() {
+            @Override
+            public boolean handleMessage(@NonNull Message msg) {
+                return false;
+            }
+        });
         sContext = context;
         handler = new Handler(context.getMainLooper());
+//        handler.obtainMessage()
+//        handler.sendMessageAtTime()
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                SystemClock.uptimeMillis();
+            }
+        }, 1000);
         int availableProcessors = Runtime.getRuntime().availableProcessors();
         mExecutorService = Executors.newFixedThreadPool(availableProcessors / 2 + 1);
         memoryCache = new HashMap<>();

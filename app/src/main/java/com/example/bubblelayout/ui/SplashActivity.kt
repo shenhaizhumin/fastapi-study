@@ -2,6 +2,7 @@ package com.example.bubblelayout.ui
 
 import android.content.Intent
 import android.os.Bundle
+import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import com.example.bubblelayout.R
 import com.jaeger.library.StatusBarUtil
