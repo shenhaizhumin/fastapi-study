@@ -13,8 +13,8 @@ public class User extends BaseObservable {
         this.age.set(age);
     }
 
-    public String getName() {
-        return name.get();
+    public ObservableField<String> getName() {
+        return name;
     }
 
     public void setName(String name) {
