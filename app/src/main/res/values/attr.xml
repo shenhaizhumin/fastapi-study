@@ -43,4 +43,11 @@
             <enum name="bottom" value="0x03" />
         </attr>
     </declare-styleable>
+
+    <declare-styleable name="CustomTitleLayout">
+        <attr name="leftRes" format="reference" />
+        <attr name="centerText" format="string" />
+        <attr name="rightRes" format="reference" />
+        <attr name="rightText" format="string" />
+    </declare-styleable>
 </resources>
