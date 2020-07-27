@@ -30,7 +30,7 @@
             app:srcCompat="@drawable/ic_riline_tablet_line_copy" />
     </LinearLayout>
 
-    <com.example.bubblelayout.widget.NoScrollViewPager
+    <com.example.lifecycle.widget.NoScrollViewPager
         android:id="@+id/mContentPager"
         android:layout_width="match_parent"
         android:layout_height="match_parent"

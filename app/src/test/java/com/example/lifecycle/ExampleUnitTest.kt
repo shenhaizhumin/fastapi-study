@@ -1,4 +1,4 @@
-package com.example.bubblelayout
+package com.example.lifecycle
 
 import org.junit.Test
 
