@@ -38,7 +38,7 @@ android {
     }
     greendao {
         schemaVersion 4 //当前数据库版本
-        daoPackage 'com.example.bubblelayout.db'
+        daoPackage 'com.example.lifecycle.db'
         targetGenDir 'src/main/java'//存放位置
     }
 }

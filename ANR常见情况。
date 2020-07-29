@@ -1,0 +1,24 @@
+
+ANR：application not response
+    应用无响应：一般是指消息没有及时得到处理，或者处理时间超时。Android系统对于一些事件需要在指定时间范围内完成，否则抛出ANR错误。
+        inputDispatching Timeout: 输入事件分发超时5s，包括按键分发事件的超时。==主要类型
+
+        BroadcastQueue Timeout：比如前台广播在10s内执行完成
+
+        ContentProvider Timeout：内容提供者执行超时（读写权限导致的）
+
+        Service Timeout:服务在20s内未执行完成；===小概率类型
+
+       如何避免：UI线程尽量只做跟UI相关的操作，数据库增删改查，网络获取数据，IO读写放到工作线程完成。
+
+    ANR之后的系统输出：
+        各个进程的CPU使用情况；
+        CPU负载；
+        IOWait；
+        traces文件
+        ANR发生，对应的应用会收到SIGQUIT异常终止信号，dalvik虚拟机就会自动在/data/anr/目录下生成trace.txt文件，
+        这个文件记录了在发生ANR时刻系统各个线程的执行状态，获取这个文件是不需要root权限的，因此首先需要做的就是通过adb pull命令将这个文件导出并等待分析。。
+        产生ANR的原因有很多，比如CPU使用过高、事件没有得到及时的响应、死锁等，
+
+
+        正确使用Android性能分析工具——TraceView

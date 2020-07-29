@@ -1,0 +1,20 @@
+
+1. LinearLayout 与 RelativeLayout
+    LinearLayout通常情况下在onMeasure的时候只会测量一次，而RelativeLayout在onMeasure时期会对子 View测量两次，从绘制过程来看mLinearLayout比relativeLayout
+    相对要快不少，嵌套层级较少的情况下可以优先使用LinearLayout。实际开发情况下一个页面的绘制一般会需要多歌linearLayout嵌套，使得绘制过程过于复杂，
+    这个时候使用relativeLayout可以减少布局的嵌套层级。
+2.ViewStub
+    布局中使用ViewStub包装的View会延迟加载，设置为可见或者调用ViewStub的inflate方法才会将View加载到视图当中（设置ViewStub的可见也是屌用其inflate方法）。
+3.merge
+    布局配合include使用merge标签，merge标签必须申明在根结点，merge所代表的并非view或者ViewGroup，相当于申明了一些视图，等待被添加。
+    由于merge并非View，所以使用LayoutInflate.inflate方法渲染视图的时候需要指定它的父容器，并且申明attachRoot为true，为merge下的view指定父节点。
+    可以在创建自定义组合控件的时候使用merge减少层级嵌套。
+
+    //以前不了解merge时的做法是，创建类，继承RelativeLayout，然后创建layout.xml，根布局也是RelativeLayout，
+    //在然后在布局中写入其他控件，接着就是在自定义view中inflate布局进来，之后巴拉巴拉一堆逻辑
+
+    android studio中在merge标签中使用parentTag指定父View的类型即可预览merge中的排版效果。tools:parentTag="android.widget.FrameLayout"
+
+4.include
+    复用布局。
+
